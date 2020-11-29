@@ -1,0 +1,10 @@
+__pycache__/
+*.pyc
+build/
+dist/
+pybluemonday.egg-info/
+pybluemonday/*.so
+.DS_Store
+bluemonday.o
+bluemonday.so
+.eggs

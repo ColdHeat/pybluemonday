@@ -1,0 +1,4 @@
+html-sanitizer==1.9.1
+bleach==3.2.1
+black==20.8b1
+isort==5.6.4
