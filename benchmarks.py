@@ -1,4 +1,4 @@
-import bleach
+from bleach.sanitizer import Cleaner as BleachSanitizer
 from html_sanitizer import Sanitizer as HTMLSanitizerSanitizer
 
 from pybluemonday import Sanitizer as BlueMondaySanitizer
@@ -33,10 +33,11 @@ TEST = """
 
 BLUE_MONDAY = BlueMondaySanitizer()
 HTML_SANITIZER = HTMLSanitizerSanitizer()
+BLEACH_SANITIZER = BleachSanitizer()
 
 
 def test_bleach():
-    bleach.clean(TEST)
+    BLEACH_SANITIZER.clean(TEST)
 
 
 def test_html_sanitizer():

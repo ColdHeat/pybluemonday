@@ -69,9 +69,15 @@ extern "C" {
 #endif
 
 
+extern long unsigned int NewPolicy();
+
+extern long unsigned int StrictPolicy();
+
 extern long unsigned int NewUGCPolicy();
 
 extern void DestroyPolicy(long unsigned int p0);
+
+extern void CallAttrBuilderPolicyFunction(long unsigned int p0, char* p1, char* p2, char* p3, char* p4);
 
 extern void CallPolicyFunction(long unsigned int p0, char* p1);
 

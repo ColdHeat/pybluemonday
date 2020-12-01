@@ -13,17 +13,23 @@ ffibuilder.set_source(
 
 ffibuilder.cdef(
     """
-    extern long unsigned int NewUGCPolicy();
+extern long unsigned int NewPolicy();
 
-    extern void DestroyPolicy(long unsigned int p0);
+extern long unsigned int StrictPolicy();
 
-    extern void CallPolicyFunction(long unsigned int p0, char* p1);
+extern long unsigned int NewUGCPolicy();
 
-    extern void CallPolicyFunctionWithString(long unsigned int p0, char* p1, char* p2);
+extern void DestroyPolicy(long unsigned int p0);
 
-    extern void CallPolicyFunctionWithBool(long unsigned int p0, char* p1, unsigned int p2);
+extern void CallAttrBuilderPolicyFunction(long unsigned int p0, char* p1, char* p2, char* p3, char* p4);
 
-    extern char* SanitizeWithPolicy(long unsigned int p0, char* p1);
+extern void CallPolicyFunction(long unsigned int p0, char* p1);
+
+extern void CallPolicyFunctionWithString(long unsigned int p0, char* p1, char* p2);
+
+extern void CallPolicyFunctionWithBool(long unsigned int p0, char* p1, unsigned int p2);
+
+extern char* SanitizeWithPolicy(long unsigned int p0, char* p1);
     """
 )
 
