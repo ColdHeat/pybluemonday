@@ -575,41 +575,43 @@ static void (*_cffi_call_python_org)(struct _cffi_externpy_s *, char *);
 static void *_cffi_types[] = {
 /*  0 */ _CFFI_OP(_CFFI_OP_FUNCTION, 2), // char *()(unsigned long, char *)
 /*  1 */ _CFFI_OP(_CFFI_OP_PRIMITIVE, 10), // unsigned long
-/*  2 */ _CFFI_OP(_CFFI_OP_POINTER, 30), // char *
+/*  2 */ _CFFI_OP(_CFFI_OP_POINTER, 32), // char *
 /*  3 */ _CFFI_OP(_CFFI_OP_FUNCTION_END, 0),
 /*  4 */ _CFFI_OP(_CFFI_OP_FUNCTION, 1), // unsigned long()(void)
 /*  5 */ _CFFI_OP(_CFFI_OP_FUNCTION_END, 0),
-/*  6 */ _CFFI_OP(_CFFI_OP_FUNCTION, 31), // void()(unsigned long)
+/*  6 */ _CFFI_OP(_CFFI_OP_FUNCTION, 33), // void()(unsigned long)
 /*  7 */ _CFFI_OP(_CFFI_OP_PRIMITIVE, 10),
 /*  8 */ _CFFI_OP(_CFFI_OP_FUNCTION_END, 0),
-/*  9 */ _CFFI_OP(_CFFI_OP_FUNCTION, 31), // void()(unsigned long, char *)
+/*  9 */ _CFFI_OP(_CFFI_OP_FUNCTION, 33), // void()(unsigned long, char *)
 /* 10 */ _CFFI_OP(_CFFI_OP_PRIMITIVE, 10),
 /* 11 */ _CFFI_OP(_CFFI_OP_NOOP, 2),
 /* 12 */ _CFFI_OP(_CFFI_OP_FUNCTION_END, 0),
-/* 13 */ _CFFI_OP(_CFFI_OP_FUNCTION, 31), // void()(unsigned long, char *, char *)
+/* 13 */ _CFFI_OP(_CFFI_OP_FUNCTION, 33), // void()(unsigned long, char *, char *)
 /* 14 */ _CFFI_OP(_CFFI_OP_PRIMITIVE, 10),
 /* 15 */ _CFFI_OP(_CFFI_OP_NOOP, 2),
 /* 16 */ _CFFI_OP(_CFFI_OP_NOOP, 2),
 /* 17 */ _CFFI_OP(_CFFI_OP_FUNCTION_END, 0),
-/* 18 */ _CFFI_OP(_CFFI_OP_FUNCTION, 31), // void()(unsigned long, char *, char *, char *, char *)
+/* 18 */ _CFFI_OP(_CFFI_OP_FUNCTION, 33), // void()(unsigned long, char *, char *, char *, char *, char *, char *)
 /* 19 */ _CFFI_OP(_CFFI_OP_PRIMITIVE, 10),
 /* 20 */ _CFFI_OP(_CFFI_OP_NOOP, 2),
 /* 21 */ _CFFI_OP(_CFFI_OP_NOOP, 2),
 /* 22 */ _CFFI_OP(_CFFI_OP_NOOP, 2),
 /* 23 */ _CFFI_OP(_CFFI_OP_NOOP, 2),
-/* 24 */ _CFFI_OP(_CFFI_OP_FUNCTION_END, 0),
-/* 25 */ _CFFI_OP(_CFFI_OP_FUNCTION, 31), // void()(unsigned long, char *, unsigned int)
-/* 26 */ _CFFI_OP(_CFFI_OP_PRIMITIVE, 10),
-/* 27 */ _CFFI_OP(_CFFI_OP_NOOP, 2),
-/* 28 */ _CFFI_OP(_CFFI_OP_PRIMITIVE, 8), // unsigned int
-/* 29 */ _CFFI_OP(_CFFI_OP_FUNCTION_END, 0),
-/* 30 */ _CFFI_OP(_CFFI_OP_PRIMITIVE, 2), // char
-/* 31 */ _CFFI_OP(_CFFI_OP_PRIMITIVE, 0), // void
+/* 24 */ _CFFI_OP(_CFFI_OP_NOOP, 2),
+/* 25 */ _CFFI_OP(_CFFI_OP_NOOP, 2),
+/* 26 */ _CFFI_OP(_CFFI_OP_FUNCTION_END, 0),
+/* 27 */ _CFFI_OP(_CFFI_OP_FUNCTION, 33), // void()(unsigned long, char *, unsigned int)
+/* 28 */ _CFFI_OP(_CFFI_OP_PRIMITIVE, 10),
+/* 29 */ _CFFI_OP(_CFFI_OP_NOOP, 2),
+/* 30 */ _CFFI_OP(_CFFI_OP_PRIMITIVE, 8), // unsigned int
+/* 31 */ _CFFI_OP(_CFFI_OP_FUNCTION_END, 0),
+/* 32 */ _CFFI_OP(_CFFI_OP_PRIMITIVE, 2), // char
+/* 33 */ _CFFI_OP(_CFFI_OP_PRIMITIVE, 0), // void
 };
 
-static void _cffi_d_CallAttrBuilderPolicyFunction(unsigned long x0, char * x1, char * x2, char * x3, char * x4)
+static void _cffi_d_CallAttrBuilderPolicyFunction(unsigned long x0, char * x1, char * x2, char * x3, char * x4, char * x5, char * x6)
 {
-  CallAttrBuilderPolicyFunction(x0, x1, x2, x3, x4);
+  CallAttrBuilderPolicyFunction(x0, x1, x2, x3, x4, x5, x6);
 }
 #ifndef PYPY_VERSION
 static PyObject *
@@ -620,6 +622,8 @@ _cffi_f_CallAttrBuilderPolicyFunction(PyObject *self, PyObject *args)
   char * x2;
   char * x3;
   char * x4;
+  char * x5;
+  char * x6;
   Py_ssize_t datasize;
   struct _cffi_freeme_s *large_args_free = NULL;
   PyObject *arg0;
@@ -627,8 +631,10 @@ _cffi_f_CallAttrBuilderPolicyFunction(PyObject *self, PyObject *args)
   PyObject *arg2;
   PyObject *arg3;
   PyObject *arg4;
+  PyObject *arg5;
+  PyObject *arg6;
 
-  if (!PyArg_UnpackTuple(args, "CallAttrBuilderPolicyFunction", 5, 5, &arg0, &arg1, &arg2, &arg3, &arg4))
+  if (!PyArg_UnpackTuple(args, "CallAttrBuilderPolicyFunction", 7, 7, &arg0, &arg1, &arg2, &arg3, &arg4, &arg5, &arg6))
     return NULL;
 
   x0 = _cffi_to_c_int(arg0, unsigned long);
@@ -671,9 +677,27 @@ _cffi_f_CallAttrBuilderPolicyFunction(PyObject *self, PyObject *args)
       return NULL;
   }
 
+  datasize = _cffi_prepare_pointer_call_argument(
+      _cffi_type(2), arg5, (char **)&x5);
+  if (datasize != 0) {
+    x5 = ((size_t)datasize) <= 640 ? (char *)alloca((size_t)datasize) : NULL;
+    if (_cffi_convert_array_argument(_cffi_type(2), arg5, (char **)&x5,
+            datasize, &large_args_free) < 0)
+      return NULL;
+  }
+
+  datasize = _cffi_prepare_pointer_call_argument(
+      _cffi_type(2), arg6, (char **)&x6);
+  if (datasize != 0) {
+    x6 = ((size_t)datasize) <= 640 ? (char *)alloca((size_t)datasize) : NULL;
+    if (_cffi_convert_array_argument(_cffi_type(2), arg6, (char **)&x6,
+            datasize, &large_args_free) < 0)
+      return NULL;
+  }
+
   Py_BEGIN_ALLOW_THREADS
   _cffi_restore_errno();
-  { CallAttrBuilderPolicyFunction(x0, x1, x2, x3, x4); }
+  { CallAttrBuilderPolicyFunction(x0, x1, x2, x3, x4, x5, x6); }
   _cffi_save_errno();
   Py_END_ALLOW_THREADS
 
@@ -998,7 +1022,7 @@ _cffi_f_StrictPolicy(PyObject *self, PyObject *noarg)
 static const struct _cffi_global_s _cffi_globals[] = {
   { "CallAttrBuilderPolicyFunction", (void *)_cffi_f_CallAttrBuilderPolicyFunction, _CFFI_OP(_CFFI_OP_CPYTHON_BLTN_V, 18), (void *)_cffi_d_CallAttrBuilderPolicyFunction },
   { "CallPolicyFunction", (void *)_cffi_f_CallPolicyFunction, _CFFI_OP(_CFFI_OP_CPYTHON_BLTN_V, 9), (void *)_cffi_d_CallPolicyFunction },
-  { "CallPolicyFunctionWithBool", (void *)_cffi_f_CallPolicyFunctionWithBool, _CFFI_OP(_CFFI_OP_CPYTHON_BLTN_V, 25), (void *)_cffi_d_CallPolicyFunctionWithBool },
+  { "CallPolicyFunctionWithBool", (void *)_cffi_f_CallPolicyFunctionWithBool, _CFFI_OP(_CFFI_OP_CPYTHON_BLTN_V, 27), (void *)_cffi_d_CallPolicyFunctionWithBool },
   { "CallPolicyFunctionWithString", (void *)_cffi_f_CallPolicyFunctionWithString, _CFFI_OP(_CFFI_OP_CPYTHON_BLTN_V, 13), (void *)_cffi_d_CallPolicyFunctionWithString },
   { "DestroyPolicy", (void *)_cffi_f_DestroyPolicy, _CFFI_OP(_CFFI_OP_CPYTHON_BLTN_O, 6), (void *)_cffi_d_DestroyPolicy },
   { "NewPolicy", (void *)_cffi_f_NewPolicy, _CFFI_OP(_CFFI_OP_CPYTHON_BLTN_N, 4), (void *)_cffi_d_NewPolicy },
@@ -1019,7 +1043,7 @@ static const struct _cffi_type_context_s _cffi_type_context = {
   0,  /* num_enums */
   0,  /* num_typenames */
   NULL,  /* no includes */
-  32,  /* num_types */
+  34,  /* num_types */
   0,  /* flags */
 };
 

@@ -6,7 +6,7 @@ import (
 	"github.com/microcosm-cc/bluemonday"
 	"math/rand"
 	"reflect"
-	// "regexp"
+	"regexp"
 )
 
 var POLICIES = map[uint64]*bluemonday.Policy{}
@@ -41,101 +41,67 @@ func DestroyPolicy(policyId C.ulong) {
 	delete(POLICIES, goPolicyId)
 }
 
-// //export AllowAttrGlobally
-// func AllowAttrGlobally(policyId C.ulong, attr *C.char) {
-// 	goPolicyId := uint64(policyId)
-// 	goAttr := C.GoString(attr)
-
-// 	policy := POLICIES[goPolicyId]
-// 	policy.AllowAttrs(goAttr).Globally()
-// }
-
-// //export AllowAttrOnElement
-// func AllowAttrOnElement(policyId C.ulong, attr *C.char, element *C.char) {
-// 	goPolicyId := uint64(policyId)
-// 	goAttr := C.GoString(attr)
-// 	goElement := C.GoString(element)
-
-// 	policy := POLICIES[goPolicyId]
-// 	policy.AllowAttrs(goAttr).OnElements(goElement)
-// }
-
-// //export AllowAttrsOnElementsMatching
-// func AllowAttrsOnElementsMatching(policyId C.ulong, attr *C.char, regex *C.char) {
-// 	goPolicyId := uint64(policyId)
-// 	goAttr := C.GoString(attr)
-// 	goRegex := C.GoString(regex)
-
-// 	elementRegex := regexp.MustCompile(goRegex)
-
-// 	policy := POLICIES[goPolicyId]
-// 	policy.AllowAttrs(goAttr).OnElementsMatching(elementRegex)
-// }
-
-// //export AllowMatchingAttrsGlobally
-// func AllowMatchingAttrsGlobally(policyId C.ulong, attr *C.char, regex *C.char) {
-// 	goPolicyId := uint64(policyId)
-// 	goAttr := C.GoString(attr)
-// 	goRegex := C.GoString(regex)
-
-// 	attrValueRegex := regexp.MustCompile(goRegex)
-
-// 	policy := POLICIES[goPolicyId]
-// 	policy.AllowAttrs(goAttr).Matching(attrValueRegex).Globally()
-// }
-
-// //export AllowMatchingAttrsOnElements
-// func AllowMatchingAttrsOnElements(policyId C.ulong, attr *C.char, regex *C.char, element *C.char) {
-// 	goPolicyId := uint64(policyId)
-// 	goAttr := C.GoString(attr)
-// 	goRegex := C.GoString(regex)
-// 	goElement := C.GoString(element)
-
-// 	attrValueRegex := regexp.MustCompile(goRegex)
-
-// 	policy := POLICIES[goPolicyId]
-// 	policy.AllowAttrs(goAttr).Matching(attrValueRegex).OnElements(goElement)
-// }
-
-// //AllowMatchingAttrsOnElementsMatching
-// func AllowMatchingAttrsOnElementsMatching(policyId C.ulong, attr *C.char, attrRegex *C.char, elementRegex *C.char) {
-// 	goPolicyId := uint64(policyId)
-// 	goAttr := C.GoString(attr)
-// 	goAttrValueRegex := regexp.MustCompile(C.GoString(attrRegex))
-// 	goElementRegex := regexp.MustCompile(C.GoString(elementRegex))
-
-// 	policy := POLICIES[goPolicyId]
-// 	policy.AllowAttrs(goAttr).Matching(goAttrValueRegex).OnElementsMatching(goElementRegex)
-// }
-
 //export CallAttrBuilderPolicyFunction
-func CallAttrBuilderPolicyFunction(policyId C.ulong, policyMethod *C.char, policyArgument *C.char, builderMethod *C.char, builderArgument *C.char) {
-	// policy.AllowAttrs("method", "action").OnElements("form")
+func CallAttrBuilderPolicyFunction(policyId C.ulong, policyMethod *C.char, policyArgument *C.char, valueFunction *C.char, valueFilter *C.char, selectorFunction *C.char, selectorValue *C.char) {
 	goPolicyId := uint64(policyId)
 	goPolicyMethod := C.GoString(policyMethod)
 	goPolicyArgument := C.GoString(policyArgument)
-	goBuilderMethod := C.GoString(builderMethod)
-	goBuilderArgument := C.GoString(builderArgument)
+	goValueFunction := C.GoString(valueFunction)
+	goValueFilter := C.GoString(valueFilter)
+	goSelectorFunction := C.GoString(selectorFunction)
+	goSelectorValue := C.GoString(selectorValue)
 
 	policy := POLICIES[goPolicyId]
-	var AttrPolicyBuilder interface{}
 	switch goPolicyMethod {
 	case "AllowAttrs":
-		AttrPolicyBuilder = policy.AllowAttrs(goPolicyArgument)
+		AttrPolicyBuilder := policy.AllowAttrs(goPolicyArgument)
+		if len(goValueFunction) > 0 {
+			switch goPolicyMethod {
+			case "Matching":
+				valueRegex := regexp.MustCompile(goValueFilter)
+				AttrPolicyBuilder.Matching(valueRegex)
+			default:
+				panic("Unknown value function")
+			}
+		}
+
+		switch goSelectorFunction {
+		case "OnElements":
+			AttrPolicyBuilder.OnElements(goSelectorValue)
+		case "OnElementsMatching":
+			selectorRegex := regexp.MustCompile(goSelectorValue)
+			AttrPolicyBuilder.OnElementsMatching(selectorRegex)
+		case "Globally":
+			AttrPolicyBuilder.Globally()
+		default:
+			panic("Unknown selector function")
+		}
+
 	case "AllowNoAttrs":
-		AttrPolicyBuilder = policy.AllowNoAttrs()
+		AttrPolicyBuilder := policy.AllowNoAttrs()
+		if len(goValueFunction) > 0 {
+			switch goPolicyMethod {
+			case "Matching":
+				valueRegex := regexp.MustCompile(goValueFilter)
+				AttrPolicyBuilder.Matching(valueRegex)
+			default:
+				panic("Unknown value function")
+			}
+		}
+
+		switch goSelectorFunction {
+		case "OnElements":
+			AttrPolicyBuilder.OnElements(goSelectorValue)
+		case "OnElementsMatching":
+			selectorRegex := regexp.MustCompile(goSelectorValue)
+			AttrPolicyBuilder.OnElementsMatching(selectorRegex)
+		case "Globally":
+			AttrPolicyBuilder.Globally()
+		default:
+			panic("Unknown selector function")
+		}
 	default:
 		panic("Unknown policy method")
-	}
-
-	meth := reflect.ValueOf(AttrPolicyBuilder).MethodByName(goBuilderMethod)
-	if (goBuilderMethod == "Globally") {
-		meth.Call(nil)
-		return
-	} else {
-		args := []reflect.Value{reflect.ValueOf(goBuilderArgument)}
-		meth.Call(args)
-		return
 	}
 }
 
@@ -184,63 +150,39 @@ func SanitizeWithPolicy(policyId C.ulong, document *C.char) *C.char {
 }
 
 func main() {
-	// 	var test = `<html>
-	// 	<head>
-	// 	<script type="text/javascript" src="evil-site"></script>
-	// 	<link rel="alternate" type="text/rss" src="evil-rss">
-	// 	<style>
-	// 		body {background-image: url(javascript:do_evil)};
-	// 		div {color: expression(evil)};
-	// 	</style>
-	// 	</head>
-	// 	<body onload="evil_function()">
-	// 	<!-- I am interpreted for EVIL! -->
-	// 	<a href="javascript:evil_function()">a link</a>
-	// 	<a href="#" onclick="evil_function()">another link</a>
-	// 	<p onclick="evil_function()">a paragraph</p>
-	// 	<div style="display: none">secret EVIL!</div>
-	// 	<object> of EVIL! </object>
-	// 	<iframe src="evil-site"></iframe>
-	// 	<form action="evil-site">
-	// 		Password: <input type="password" name="password">
-	// 	</form>
-	// 	<blink>annoying EVIL!</blink>
-	// 	<a href="evil-site">spam spam SPAM!</a>
-	// 	<image src="evil!">
-	// 	</body>
-	// </html>`
-
-	test := `
-<div class="row">
-    <div class="col-md-6 offset-md-3" yeet="asdf">
-        <img yeet="asdf" class="w-100 mx-auto d-block" style="max-width: 500px;padding: 50px;padding-top: 14vh;" src="themes/core/static/img/logo.png" />
-        <h3 class="text-center">
-            <p>A cool CTF platform from <a href="https://ctfd.io">ctfd.io</a></p>
-            <p>Follow us on social media:</p>
-            <a href="https://twitter.com/ctfdio"><i class="fab fa-twitter fa-2x" aria-hidden="true"></i></a>&nbsp;
-            <a href="https://facebook.com/ctfdio"><i class="fab fa-facebook fa-2x" aria-hidden="true"></i></a>&nbsp;
-            <a href="https://github.com/ctfd"><i class="fab fa-github fa-2x" aria-hidden="true"></i></a>
-        </h3>
-        <table test="asdf">
-            <thead test="fdsa">
-                <select>
-                    <option>asdf</option>
-                </select>
-            </thead>
-        </table>
-        <br>
-        <h4 class="text-center">
-            <a href="admin">Click here</a> to login and setup your CTF
-        </h4>
-    </div>
-</div>
-`
+	var test = `<html>
+		<head>
+		<script type="text/javascript" src="evil-site"></script>
+		<link rel="alternate" type="text/rss" src="evil-rss">
+		<style>
+			body {background-image: url(javascript:do_evil)};
+			div {color: expression(evil)};
+		</style>
+		</head>
+		<body onload="evil_function()">
+		<!-- I am interpreted for EVIL! -->
+		<a href="javascript:evil_function()">a link</a>
+		<a href="#" onclick="evil_function()">another link</a>
+		<p onclick="evil_function()">a paragraph</p>
+		<div style="display: none">secret EVIL!</div>
+		<object> of EVIL! </object>
+		<iframe src="evil-site"></iframe>
+		<form action="evil-site">
+			Password: <input type="password" name="password">
+		</form>
+		<blink>annoying EVIL!</blink>
+		<a href="evil-site">spam spam SPAM!</a>
+		<image src="evil!">
+		</body>
+	</html>`
 	policyId := NewUGCPolicy()
 
 	CallAttrBuilderPolicyFunction(
 		policyId,
 		C.CString("AllowAttrs"),
 		C.CString("class"),
+		C.CString(""),
+		C.CString(""),
 		C.CString("Globally"),
 		C.CString(""),
 	)

@@ -77,7 +77,7 @@ extern long unsigned int NewUGCPolicy();
 
 extern void DestroyPolicy(long unsigned int p0);
 
-extern void CallAttrBuilderPolicyFunction(long unsigned int p0, char* p1, char* p2, char* p3, char* p4);
+extern void CallAttrBuilderPolicyFunction(long unsigned int p0, char* p1, char* p2, char* p3, char* p4, char* p5, char* p6);
 
 extern void CallPolicyFunction(long unsigned int p0, char* p1);
 
