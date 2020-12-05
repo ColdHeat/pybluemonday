@@ -6,9 +6,26 @@ import (
 	"github.com/microcosm-cc/bluemonday"
 	"math/rand"
 	"reflect"
+	"regexp"
 )
 
 var POLICIES = map[uint64]*bluemonday.Policy{}
+
+//export NewPolicy
+func NewPolicy() C.ulong {
+	policyId := rand.Uint64()
+	policy := bluemonday.NewPolicy()
+	POLICIES[policyId] = policy
+	return C.ulong(policyId)
+}
+
+//export StrictPolicy
+func StrictPolicy() C.ulong {
+	policyId := rand.Uint64()
+	policy := bluemonday.StrictPolicy()
+	POLICIES[policyId] = policy
+	return C.ulong(policyId)
+}
 
 //export NewUGCPolicy
 func NewUGCPolicy() C.ulong {
@@ -22,6 +39,70 @@ func NewUGCPolicy() C.ulong {
 func DestroyPolicy(policyId C.ulong) {
 	goPolicyId := uint64(policyId)
 	delete(POLICIES, goPolicyId)
+}
+
+//export CallAttrBuilderPolicyFunction
+func CallAttrBuilderPolicyFunction(policyId C.ulong, policyMethod *C.char, policyArgument *C.char, valueFunction *C.char, valueFilter *C.char, selectorFunction *C.char, selectorValue *C.char) {
+	goPolicyId := uint64(policyId)
+	goPolicyMethod := C.GoString(policyMethod)
+	goPolicyArgument := C.GoString(policyArgument)
+	goValueFunction := C.GoString(valueFunction)
+	goValueFilter := C.GoString(valueFilter)
+	goSelectorFunction := C.GoString(selectorFunction)
+	goSelectorValue := C.GoString(selectorValue)
+
+	policy := POLICIES[goPolicyId]
+	switch goPolicyMethod {
+	case "AllowAttrs":
+		AttrPolicyBuilder := policy.AllowAttrs(goPolicyArgument)
+		if len(goValueFunction) > 0 {
+			switch goPolicyMethod {
+			case "Matching":
+				valueRegex := regexp.MustCompile(goValueFilter)
+				AttrPolicyBuilder.Matching(valueRegex)
+			default:
+				panic("Unknown value function")
+			}
+		}
+
+		switch goSelectorFunction {
+		case "OnElements":
+			AttrPolicyBuilder.OnElements(goSelectorValue)
+		case "OnElementsMatching":
+			selectorRegex := regexp.MustCompile(goSelectorValue)
+			AttrPolicyBuilder.OnElementsMatching(selectorRegex)
+		case "Globally":
+			AttrPolicyBuilder.Globally()
+		default:
+			panic("Unknown selector function")
+		}
+
+	case "AllowNoAttrs":
+		AttrPolicyBuilder := policy.AllowNoAttrs()
+		if len(goValueFunction) > 0 {
+			switch goPolicyMethod {
+			case "Matching":
+				valueRegex := regexp.MustCompile(goValueFilter)
+				AttrPolicyBuilder.Matching(valueRegex)
+			default:
+				panic("Unknown value function")
+			}
+		}
+
+		switch goSelectorFunction {
+		case "OnElements":
+			AttrPolicyBuilder.OnElements(goSelectorValue)
+		case "OnElementsMatching":
+			selectorRegex := regexp.MustCompile(goSelectorValue)
+			AttrPolicyBuilder.OnElementsMatching(selectorRegex)
+		case "Globally":
+			AttrPolicyBuilder.Globally()
+		default:
+			panic("Unknown selector function")
+		}
+	default:
+		panic("Unknown policy method")
+	}
 }
 
 //export CallPolicyFunction
@@ -70,38 +151,48 @@ func SanitizeWithPolicy(policyId C.ulong, document *C.char) *C.char {
 
 func main() {
 	var test = `<html>
-	<head>
-	<script type="text/javascript" src="evil-site"></script>
-	<link rel="alternate" type="text/rss" src="evil-rss">
-	<style>
-		body {background-image: url(javascript:do_evil)};
-		div {color: expression(evil)};
-	</style>
-	</head>
-	<body onload="evil_function()">
-	<!-- I am interpreted for EVIL! -->
-	<a href="javascript:evil_function()">a link</a>
-	<a href="#" onclick="evil_function()">another link</a>
-	<p onclick="evil_function()">a paragraph</p>
-	<div style="display: none">secret EVIL!</div>
-	<object> of EVIL! </object>
-	<iframe src="evil-site"></iframe>
-	<form action="evil-site">
-		Password: <input type="password" name="password">
-	</form>
-	<blink>annoying EVIL!</blink>
-	<a href="evil-site">spam spam SPAM!</a>
-	<image src="evil!">
-	</body>
-</html>`
-
+		<head>
+		<script type="text/javascript" src="evil-site"></script>
+		<link rel="alternate" type="text/rss" src="evil-rss">
+		<style>
+			body {background-image: url(javascript:do_evil)};
+			div {color: expression(evil)};
+		</style>
+		</head>
+		<body onload="evil_function()">
+		<!-- I am interpreted for EVIL! -->
+		<a href="javascript:evil_function()">a link</a>
+		<a href="#" onclick="evil_function()">another link</a>
+		<p onclick="evil_function()">a paragraph</p>
+		<div style="display: none">secret EVIL!</div>
+		<object> of EVIL! </object>
+		<iframe src="evil-site"></iframe>
+		<form action="evil-site">
+			Password: <input type="password" name="password">
+		</form>
+		<blink>annoying EVIL!</blink>
+		<a href="evil-site">spam spam SPAM!</a>
+		<image src="evil!">
+		</body>
+	</html>`
 	policyId := NewUGCPolicy()
+
+	CallAttrBuilderPolicyFunction(
+		policyId,
+		C.CString("AllowAttrs"),
+		C.CString("class"),
+		C.CString(""),
+		C.CString(""),
+		C.CString("Globally"),
+		C.CString(""),
+	)
 
 	CallPolicyFunction(policyId, C.CString("AllowDataURIImages"))
 
 	CallPolicyFunctionWithString(policyId, C.CString("AllowElements"), C.CString("style"))
 
 	CallPolicyFunctionWithBool(policyId, C.CString("RequireNoReferrerOnLinks"), 1)
+	CallPolicyFunctionWithBool(policyId, C.CString("AddTargetBlankToFullyQualifiedLinks"), 1)
 
 	output := C.GoString(SanitizeWithPolicy(policyId, C.CString(test)))
 	fmt.Println(output)
