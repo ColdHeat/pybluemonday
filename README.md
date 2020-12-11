@@ -1,5 +1,7 @@
 # pybluemonday
 
+[![PyPI](https://img.shields.io/pypi/v/pybluemonday)](https://pypi.org/project/pybluemonday/)
+
 pybluemonday is a library for sanitizing HTML very quickly via [bluemonday](https://github.com/microcosm-cc/bluemonday).
 
 pybluemonday takes untrusted user generated content as an input, and will return HTML that has been sanitised against a whitelist of approved HTML elements and attributes so that you can safely include the content in your web page.
