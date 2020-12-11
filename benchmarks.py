@@ -1,7 +1,7 @@
 from bleach.sanitizer import Cleaner as BleachSanitizer
 from html_sanitizer import Sanitizer as HTMLSanitizerSanitizer
 
-from pybluemonday import Sanitizer as BlueMondaySanitizer
+from pybluemonday import UGCPolicy as BlueMondaySanitizer
 
 # Snipppet from https://lxml.de/lxmlhtml.html#cleaning-up-html
 TEST = """

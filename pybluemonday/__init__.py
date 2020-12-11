@@ -1,9 +1,10 @@
-from pybluemonday.bluemonday import ffi, lib
 from typing import List
+
+from pybluemonday.bluemonday import ffi, lib
 
 
 class AttrPolicyBuilder:
-    def __init__(self, policy_id, policy_method, attrs):
+    def __init__(self, policy_id: int, policy_method: str, attrs: List[str]):
         self.policy_id = policy_id
         self.policy_method = policy_method
         self.attrs = attrs
@@ -62,11 +63,11 @@ class AttrPolicyBuilder:
             )
 
 
-class Sanitizer:
+class Policy:
     def __init__(self):
-        self._id = lib.NewUGCPolicy()
+        self._id = lib.NewPolicy()
 
-    def __getattr__(self, attr):
+    def __getattr__(self, attr: str):
         def method(*args):
             method_name = attr.encode()
             if args:
@@ -81,12 +82,12 @@ class Sanitizer:
 
         return method
 
-    def AllowAttrs(self, *attrs):
+    def AllowAttrs(self, *attrs: str):
         return AttrPolicyBuilder(
             policy_id=self._id, policy_method="AllowAttrs", attrs=attrs
         )
 
-    def AllowNoAttrs(self, *attrs):
+    def AllowNoAttrs(self, *attrs: str):
         return AttrPolicyBuilder(
             policy_id=self._id, policy_method="AllowNoAttrs", attrs=attrs
         )
@@ -100,3 +101,16 @@ class Sanitizer:
 
     def __del__(self):
         lib.DestroyPolicy(self._id)
+
+
+class NewPolicy(Policy):
+    def __init__(self):
+        self._id = lib.NewPolicy()
+
+class StrictPolicy(Policy):
+    def __init__(self):
+        self._id = lib.StrictPolicy()
+
+class UGCPolicy(Policy):
+    def __init__(self):
+        self._id = lib.UGCPolicy()

@@ -3,17 +3,31 @@ package main
 import (
 	"C"
 	"fmt"
-	"github.com/microcosm-cc/bluemonday"
 	"math/rand"
 	"reflect"
 	"regexp"
+
+	"github.com/microcosm-cc/bluemonday"
 )
 
 var POLICIES = map[uint64]*bluemonday.Policy{}
 
+func GetPolicyId() uint64 {
+	policyId := rand.Uint64()
+
+	for {
+		if POLICIES[policyId] == nil {
+			break
+		} else {
+			policyId = rand.Uint64()
+		}
+	}
+	return policyId
+}
+
 //export NewPolicy
 func NewPolicy() C.ulong {
-	policyId := rand.Uint64()
+	policyId := GetPolicyId()
 	policy := bluemonday.NewPolicy()
 	POLICIES[policyId] = policy
 	return C.ulong(policyId)
@@ -21,15 +35,15 @@ func NewPolicy() C.ulong {
 
 //export StrictPolicy
 func StrictPolicy() C.ulong {
-	policyId := rand.Uint64()
+	policyId := GetPolicyId()
 	policy := bluemonday.StrictPolicy()
 	POLICIES[policyId] = policy
 	return C.ulong(policyId)
 }
 
-//export NewUGCPolicy
-func NewUGCPolicy() C.ulong {
-	policyId := rand.Uint64()
+//export UGCPolicy
+func UGCPolicy() C.ulong {
+	policyId := GetPolicyId()
 	policy := bluemonday.UGCPolicy()
 	POLICIES[policyId] = policy
 	return C.ulong(policyId)
@@ -175,7 +189,7 @@ func main() {
 		<image src="evil!">
 		</body>
 	</html>`
-	policyId := NewUGCPolicy()
+	policyId := UGCPolicy()
 
 	CallAttrBuilderPolicyFunction(
 		policyId,

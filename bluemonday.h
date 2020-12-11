@@ -73,7 +73,7 @@ extern long unsigned int NewPolicy();
 
 extern long unsigned int StrictPolicy();
 
-extern long unsigned int NewUGCPolicy();
+extern long unsigned int UGCPolicy();
 
 extern void DestroyPolicy(long unsigned int p0);
 

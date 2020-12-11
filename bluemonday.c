@@ -919,32 +919,6 @@ _cffi_f_NewPolicy(PyObject *self, PyObject *noarg)
 #  define _cffi_f_NewPolicy _cffi_d_NewPolicy
 #endif
 
-static unsigned long _cffi_d_NewUGCPolicy(void)
-{
-  return NewUGCPolicy();
-}
-#ifndef PYPY_VERSION
-static PyObject *
-_cffi_f_NewUGCPolicy(PyObject *self, PyObject *noarg)
-{
-  unsigned long result;
-  PyObject *pyresult;
-
-  Py_BEGIN_ALLOW_THREADS
-  _cffi_restore_errno();
-  { result = NewUGCPolicy(); }
-  _cffi_save_errno();
-  Py_END_ALLOW_THREADS
-
-  (void)self; /* unused */
-  (void)noarg; /* unused */
-  pyresult = _cffi_from_c_int(result, unsigned long);
-  return pyresult;
-}
-#else
-#  define _cffi_f_NewUGCPolicy _cffi_d_NewUGCPolicy
-#endif
-
 static char * _cffi_d_SanitizeWithPolicy(unsigned long x0, char * x1)
 {
   return SanitizeWithPolicy(x0, x1);
@@ -1019,6 +993,32 @@ _cffi_f_StrictPolicy(PyObject *self, PyObject *noarg)
 #  define _cffi_f_StrictPolicy _cffi_d_StrictPolicy
 #endif
 
+static unsigned long _cffi_d_UGCPolicy(void)
+{
+  return UGCPolicy();
+}
+#ifndef PYPY_VERSION
+static PyObject *
+_cffi_f_UGCPolicy(PyObject *self, PyObject *noarg)
+{
+  unsigned long result;
+  PyObject *pyresult;
+
+  Py_BEGIN_ALLOW_THREADS
+  _cffi_restore_errno();
+  { result = UGCPolicy(); }
+  _cffi_save_errno();
+  Py_END_ALLOW_THREADS
+
+  (void)self; /* unused */
+  (void)noarg; /* unused */
+  pyresult = _cffi_from_c_int(result, unsigned long);
+  return pyresult;
+}
+#else
+#  define _cffi_f_UGCPolicy _cffi_d_UGCPolicy
+#endif
+
 static const struct _cffi_global_s _cffi_globals[] = {
   { "CallAttrBuilderPolicyFunction", (void *)_cffi_f_CallAttrBuilderPolicyFunction, _CFFI_OP(_CFFI_OP_CPYTHON_BLTN_V, 18), (void *)_cffi_d_CallAttrBuilderPolicyFunction },
   { "CallPolicyFunction", (void *)_cffi_f_CallPolicyFunction, _CFFI_OP(_CFFI_OP_CPYTHON_BLTN_V, 9), (void *)_cffi_d_CallPolicyFunction },
@@ -1026,9 +1026,9 @@ static const struct _cffi_global_s _cffi_globals[] = {
   { "CallPolicyFunctionWithString", (void *)_cffi_f_CallPolicyFunctionWithString, _CFFI_OP(_CFFI_OP_CPYTHON_BLTN_V, 13), (void *)_cffi_d_CallPolicyFunctionWithString },
   { "DestroyPolicy", (void *)_cffi_f_DestroyPolicy, _CFFI_OP(_CFFI_OP_CPYTHON_BLTN_O, 6), (void *)_cffi_d_DestroyPolicy },
   { "NewPolicy", (void *)_cffi_f_NewPolicy, _CFFI_OP(_CFFI_OP_CPYTHON_BLTN_N, 4), (void *)_cffi_d_NewPolicy },
-  { "NewUGCPolicy", (void *)_cffi_f_NewUGCPolicy, _CFFI_OP(_CFFI_OP_CPYTHON_BLTN_N, 4), (void *)_cffi_d_NewUGCPolicy },
   { "SanitizeWithPolicy", (void *)_cffi_f_SanitizeWithPolicy, _CFFI_OP(_CFFI_OP_CPYTHON_BLTN_V, 0), (void *)_cffi_d_SanitizeWithPolicy },
   { "StrictPolicy", (void *)_cffi_f_StrictPolicy, _CFFI_OP(_CFFI_OP_CPYTHON_BLTN_N, 4), (void *)_cffi_d_StrictPolicy },
+  { "UGCPolicy", (void *)_cffi_f_UGCPolicy, _CFFI_OP(_CFFI_OP_CPYTHON_BLTN_N, 4), (void *)_cffi_d_UGCPolicy },
 };
 
 static const struct _cffi_type_context_s _cffi_type_context = {

@@ -1,4 +1,4 @@
-from pybluemonday import Sanitizer
+from pybluemonday import UGCPolicy
 
 HTML = """
 <div class="row">
@@ -26,7 +26,7 @@ HTML = """
 </div>
 """
 
-s = Sanitizer()
+s = UGCPolicy()
 # s.AllowElements("select", "option")
 # s.AllowAttrs("class").OnElements("div", "img")
 s.AllowAttrs("class", "style").Globally()
