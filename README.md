@@ -14,6 +14,10 @@ pip install pybluemonday
 
 pybluemonday is a binding to [bluemonday](https://github.com/microcosm-cc/bluemonday) through a shared library built through cgo.
 
+Instead of replicating the entire API, pybluemonday uses reflection on the Go side and some type checking on the Python side to call the right bluemonday function. This is an open area of improvement but gets reasonable coverage of the original bluemonday interface.
+
+Also because it's difficult to share Go structs over to Python, pybluemonday keeps an ID reference to the struct in the Go side and passes the reference for every Go call. This means that if you corrupt or change the ID for some nonsensical reason you may likely end up with a memory leak. This is also an open area of improvement.
+
 ## Performance
 
 Most Python based HTML sanitizing libraries will need to rely on [html5lib](https://html5lib.readthedocs.io/en/latest/) for parsing HTML in a reasoanble way. Because of this you will likely see performance hits when using these libraries.
