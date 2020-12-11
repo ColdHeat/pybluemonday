@@ -24,7 +24,7 @@ setuptools.setup(
     ],
     python_requires=">=3.6",
     # I'm not sure what this value is supposed to be
-    build_golang={"root": "https://github.com/ColdHeat/pybluemonday"},
+    build_golang={"root": "github.com/ColdHeat/pybluemonday"},
     ext_modules=[setuptools.Extension("pybluemonday/bluemonday", ["bluemonday.go"])],
     setup_requires=["setuptools-golang==2.3.0", "cffi==1.14.3"],
     install_requires=["cffi==1.14.3"],
