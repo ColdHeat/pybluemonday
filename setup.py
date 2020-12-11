@@ -1,10 +1,10 @@
 import setuptools
 import re
 
-with open("pybluemonday/__init__.py") as f:
+with open("pybluemonday/__init__.py", "r", encoding="utf8") as f:
     version = re.search(r'__version__ = "(.*?)"', f.read()).group(1)
 
-with open("README.md", "r") as fh:
+with open("README.md", "r", encoding="utf8") as fh:
     long_description = fh.read()
 
 setuptools.setup(
