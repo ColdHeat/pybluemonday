@@ -27,7 +27,6 @@ jobs:
         run: |
           choco install vcpython27 -f -y
           choco install golang -f -y
-          choco install mingw -f -y
 
       - name: Build Linux wheels
         if: runner.os == 'Linux'
