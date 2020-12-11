@@ -51,7 +51,7 @@ jobs:
         if: runner.os == 'Windows'
         env:
           CIBW_BUILD: cp3?-*
-          CIBW_SKIP: "cp35-* *-manylinux_i686 *-manylinux_aarch64 *-manylinux_ppc64le *-manylinux_s390x"
+          CIBW_SKIP: "cp35-* *-win32 *-manylinux_i686 *-manylinux_aarch64 *-manylinux_ppc64le *-manylinux_s390x"
         run: |
           go version
           python -m cibuildwheel --output-dir wheelhouse
