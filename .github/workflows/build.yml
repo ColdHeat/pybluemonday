@@ -8,7 +8,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [ubuntu-18.04, windows-latest, macos-latest]
+        os: [ubuntu-18.04, macos-latest]
 
     steps:
       - uses: actions/checkout@v2
@@ -44,14 +44,6 @@ jobs:
           CIBW_SKIP: "cp35-* *-win32 *-manylinux_i686 *-manylinux_aarch64 *-manylinux_ppc64le *-manylinux_s390x"
         run: |
           python3 -m cibuildwheel --output-dir wheelhouse
-
-      - name: Test
-        if: runner.os == 'Windows'
-        env:
-          CIBW_BUILD: cp3?-*
-          CIBW_SKIP: "cp35-* *-manylinux_i686 *-manylinux_aarch64 *-manylinux_ppc64le *-manylinux_s390x"
-        run: |
-          go version
 
       - name: Build Windows wheels
         if: runner.os == 'Windows'
