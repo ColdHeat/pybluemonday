@@ -51,7 +51,11 @@ jobs:
           CIBW_BUILD: cp3?-*
           CIBW_SKIP: "cp35-* *-manylinux_i686 *-manylinux_aarch64 *-manylinux_ppc64le *-manylinux_s390x"
         run: |
+<<<<<<< HEAD
           python3 -m cibuildwheel --output-dir wheelhouse
+=======
+          python -m cibuildwheel --output-dir wheelhouse
+>>>>>>> origin/master
 
       - uses: actions/upload-artifact@v2
         with:
