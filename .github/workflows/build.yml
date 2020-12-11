@@ -8,7 +8,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [ubuntu-18.04, macos-latest]
+        os: [ubuntu-18.04, windows-latest, macos-latest]
 
     steps:
       - uses: actions/checkout@v2
@@ -25,7 +25,9 @@ jobs:
       - name: Install Visual C++ for Python 2.7
         if: runner.os == 'Windows'
         run: |
-          choco install vcpython27 golang -f -y
+          choco install vcpython27 -f -y
+          choco install golang -f -y
+          choco install mingw -f -y
 
       - name: Build Linux wheels
         if: runner.os == 'Linux'
@@ -49,8 +51,9 @@ jobs:
         if: runner.os == 'Windows'
         env:
           CIBW_BUILD: cp3?-*
-          CIBW_SKIP: "cp35-* *-manylinux_i686 *-manylinux_aarch64 *-manylinux_ppc64le *-manylinux_s390x"
+          CIBW_SKIP: "cp35-* *-win32 *-manylinux_i686 *-manylinux_aarch64 *-manylinux_ppc64le *-manylinux_s390x"
         run: |
+          go version
           python -m cibuildwheel --output-dir wheelhouse
 
       - uses: actions/upload-artifact@v2
