@@ -1,4 +1,4 @@
-html-sanitizer==1.9.1
-bleach==3.2.1
+setuptools-golang==2.3.0
+cffi==1.14.3
 black==20.8b1
 isort==5.6.4

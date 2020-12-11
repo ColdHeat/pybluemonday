@@ -2,6 +2,8 @@ from typing import List
 
 from pybluemonday.bluemonday import ffi, lib
 
+__version__ = "0.0.1"
+
 
 class AttrPolicyBuilder:
     def __init__(self, policy_id: int, policy_method: str, attrs: List[str]):
@@ -107,9 +109,11 @@ class NewPolicy(Policy):
     def __init__(self):
         self._id = lib.NewPolicy()
 
+
 class StrictPolicy(Policy):
     def __init__(self):
         self._id = lib.StrictPolicy()
+
 
 class UGCPolicy(Policy):
     def __init__(self):

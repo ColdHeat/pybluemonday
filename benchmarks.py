@@ -1,3 +1,10 @@
+"""
+Install the following dependencies:
+
+html-sanitizer==1.9.1
+bleach==3.2.1
+"""
+
 from bleach.sanitizer import Cleaner as BleachSanitizer
 from html_sanitizer import Sanitizer as HTMLSanitizerSanitizer
 
