@@ -20,7 +20,7 @@ jobs:
 
       - name: Install cibuildwheel
         run: |
-          python3 -m pip install cibuildwheel==1.6.4
+          python -m pip install cibuildwheel==1.6.4
 
       - name: Install Visual C++ for Python 2.7
         if: runner.os == 'Windows'
@@ -51,7 +51,7 @@ jobs:
           CIBW_BUILD: cp3?-*
           CIBW_SKIP: "cp35-* *-manylinux_i686 *-manylinux_aarch64 *-manylinux_ppc64le *-manylinux_s390x"
         run: |
-          choco install vcpython27 -f -y
+          python -m cibuildwheel --output-dir wheelhouse
 
       - uses: actions/upload-artifact@v2
         with:
