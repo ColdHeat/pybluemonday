@@ -25,7 +25,7 @@ jobs:
       - name: Install Visual C++ for Python 2.7
         if: runner.os == 'Windows'
         run: |
-          choco install vcpython27 mingw golang -f -y
+          choco install vcpython27 golang mingw -f -y
 
       - name: Build Linux wheels
         if: runner.os == 'Linux'
