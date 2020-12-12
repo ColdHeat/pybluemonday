@@ -575,38 +575,41 @@ static void (*_cffi_call_python_org)(struct _cffi_externpy_s *, char *);
 static void *_cffi_types[] = {
 /*  0 */ _CFFI_OP(_CFFI_OP_FUNCTION, 2), // char *()(unsigned long, char *)
 /*  1 */ _CFFI_OP(_CFFI_OP_PRIMITIVE, 10), // unsigned long
-/*  2 */ _CFFI_OP(_CFFI_OP_POINTER, 32), // char *
+/*  2 */ _CFFI_OP(_CFFI_OP_POINTER, 35), // char *
 /*  3 */ _CFFI_OP(_CFFI_OP_FUNCTION_END, 0),
 /*  4 */ _CFFI_OP(_CFFI_OP_FUNCTION, 1), // unsigned long()(void)
 /*  5 */ _CFFI_OP(_CFFI_OP_FUNCTION_END, 0),
-/*  6 */ _CFFI_OP(_CFFI_OP_FUNCTION, 33), // void()(unsigned long)
-/*  7 */ _CFFI_OP(_CFFI_OP_PRIMITIVE, 10),
+/*  6 */ _CFFI_OP(_CFFI_OP_FUNCTION, 36), // void()(char *)
+/*  7 */ _CFFI_OP(_CFFI_OP_NOOP, 2),
 /*  8 */ _CFFI_OP(_CFFI_OP_FUNCTION_END, 0),
-/*  9 */ _CFFI_OP(_CFFI_OP_FUNCTION, 33), // void()(unsigned long, char *)
+/*  9 */ _CFFI_OP(_CFFI_OP_FUNCTION, 36), // void()(unsigned long)
 /* 10 */ _CFFI_OP(_CFFI_OP_PRIMITIVE, 10),
-/* 11 */ _CFFI_OP(_CFFI_OP_NOOP, 2),
-/* 12 */ _CFFI_OP(_CFFI_OP_FUNCTION_END, 0),
-/* 13 */ _CFFI_OP(_CFFI_OP_FUNCTION, 33), // void()(unsigned long, char *, char *)
-/* 14 */ _CFFI_OP(_CFFI_OP_PRIMITIVE, 10),
-/* 15 */ _CFFI_OP(_CFFI_OP_NOOP, 2),
-/* 16 */ _CFFI_OP(_CFFI_OP_NOOP, 2),
-/* 17 */ _CFFI_OP(_CFFI_OP_FUNCTION_END, 0),
-/* 18 */ _CFFI_OP(_CFFI_OP_FUNCTION, 33), // void()(unsigned long, char *, char *, char *, char *, char *, char *)
-/* 19 */ _CFFI_OP(_CFFI_OP_PRIMITIVE, 10),
-/* 20 */ _CFFI_OP(_CFFI_OP_NOOP, 2),
-/* 21 */ _CFFI_OP(_CFFI_OP_NOOP, 2),
-/* 22 */ _CFFI_OP(_CFFI_OP_NOOP, 2),
+/* 11 */ _CFFI_OP(_CFFI_OP_FUNCTION_END, 0),
+/* 12 */ _CFFI_OP(_CFFI_OP_FUNCTION, 36), // void()(unsigned long, char *)
+/* 13 */ _CFFI_OP(_CFFI_OP_PRIMITIVE, 10),
+/* 14 */ _CFFI_OP(_CFFI_OP_NOOP, 2),
+/* 15 */ _CFFI_OP(_CFFI_OP_FUNCTION_END, 0),
+/* 16 */ _CFFI_OP(_CFFI_OP_FUNCTION, 36), // void()(unsigned long, char *, char *)
+/* 17 */ _CFFI_OP(_CFFI_OP_PRIMITIVE, 10),
+/* 18 */ _CFFI_OP(_CFFI_OP_NOOP, 2),
+/* 19 */ _CFFI_OP(_CFFI_OP_NOOP, 2),
+/* 20 */ _CFFI_OP(_CFFI_OP_FUNCTION_END, 0),
+/* 21 */ _CFFI_OP(_CFFI_OP_FUNCTION, 36), // void()(unsigned long, char *, char *, char *, char *, char *, char *)
+/* 22 */ _CFFI_OP(_CFFI_OP_PRIMITIVE, 10),
 /* 23 */ _CFFI_OP(_CFFI_OP_NOOP, 2),
 /* 24 */ _CFFI_OP(_CFFI_OP_NOOP, 2),
 /* 25 */ _CFFI_OP(_CFFI_OP_NOOP, 2),
-/* 26 */ _CFFI_OP(_CFFI_OP_FUNCTION_END, 0),
-/* 27 */ _CFFI_OP(_CFFI_OP_FUNCTION, 33), // void()(unsigned long, char *, unsigned int)
-/* 28 */ _CFFI_OP(_CFFI_OP_PRIMITIVE, 10),
-/* 29 */ _CFFI_OP(_CFFI_OP_NOOP, 2),
-/* 30 */ _CFFI_OP(_CFFI_OP_PRIMITIVE, 8), // unsigned int
-/* 31 */ _CFFI_OP(_CFFI_OP_FUNCTION_END, 0),
-/* 32 */ _CFFI_OP(_CFFI_OP_PRIMITIVE, 2), // char
-/* 33 */ _CFFI_OP(_CFFI_OP_PRIMITIVE, 0), // void
+/* 26 */ _CFFI_OP(_CFFI_OP_NOOP, 2),
+/* 27 */ _CFFI_OP(_CFFI_OP_NOOP, 2),
+/* 28 */ _CFFI_OP(_CFFI_OP_NOOP, 2),
+/* 29 */ _CFFI_OP(_CFFI_OP_FUNCTION_END, 0),
+/* 30 */ _CFFI_OP(_CFFI_OP_FUNCTION, 36), // void()(unsigned long, char *, unsigned int)
+/* 31 */ _CFFI_OP(_CFFI_OP_PRIMITIVE, 10),
+/* 32 */ _CFFI_OP(_CFFI_OP_NOOP, 2),
+/* 33 */ _CFFI_OP(_CFFI_OP_PRIMITIVE, 8), // unsigned int
+/* 34 */ _CFFI_OP(_CFFI_OP_FUNCTION_END, 0),
+/* 35 */ _CFFI_OP(_CFFI_OP_PRIMITIVE, 2), // char
+/* 36 */ _CFFI_OP(_CFFI_OP_PRIMITIVE, 0), // void
 };
 
 static void _cffi_d_CallAttrBuilderPolicyFunction(unsigned long x0, char * x1, char * x2, char * x3, char * x4, char * x5, char * x6)
@@ -893,6 +896,42 @@ _cffi_f_DestroyPolicy(PyObject *self, PyObject *arg0)
 #  define _cffi_f_DestroyPolicy _cffi_d_DestroyPolicy
 #endif
 
+static void _cffi_d_FreeCString(char * x0)
+{
+  FreeCString(x0);
+}
+#ifndef PYPY_VERSION
+static PyObject *
+_cffi_f_FreeCString(PyObject *self, PyObject *arg0)
+{
+  char * x0;
+  Py_ssize_t datasize;
+  struct _cffi_freeme_s *large_args_free = NULL;
+
+  datasize = _cffi_prepare_pointer_call_argument(
+      _cffi_type(2), arg0, (char **)&x0);
+  if (datasize != 0) {
+    x0 = ((size_t)datasize) <= 640 ? (char *)alloca((size_t)datasize) : NULL;
+    if (_cffi_convert_array_argument(_cffi_type(2), arg0, (char **)&x0,
+            datasize, &large_args_free) < 0)
+      return NULL;
+  }
+
+  Py_BEGIN_ALLOW_THREADS
+  _cffi_restore_errno();
+  { FreeCString(x0); }
+  _cffi_save_errno();
+  Py_END_ALLOW_THREADS
+
+  (void)self; /* unused */
+  if (large_args_free != NULL) _cffi_free_array_arguments(large_args_free);
+  Py_INCREF(Py_None);
+  return Py_None;
+}
+#else
+#  define _cffi_f_FreeCString _cffi_d_FreeCString
+#endif
+
 static unsigned long _cffi_d_NewPolicy(void)
 {
   return NewPolicy();
@@ -1020,11 +1059,12 @@ _cffi_f_UGCPolicy(PyObject *self, PyObject *noarg)
 #endif
 
 static const struct _cffi_global_s _cffi_globals[] = {
-  { "CallAttrBuilderPolicyFunction", (void *)_cffi_f_CallAttrBuilderPolicyFunction, _CFFI_OP(_CFFI_OP_CPYTHON_BLTN_V, 18), (void *)_cffi_d_CallAttrBuilderPolicyFunction },
-  { "CallPolicyFunction", (void *)_cffi_f_CallPolicyFunction, _CFFI_OP(_CFFI_OP_CPYTHON_BLTN_V, 9), (void *)_cffi_d_CallPolicyFunction },
-  { "CallPolicyFunctionWithBool", (void *)_cffi_f_CallPolicyFunctionWithBool, _CFFI_OP(_CFFI_OP_CPYTHON_BLTN_V, 27), (void *)_cffi_d_CallPolicyFunctionWithBool },
-  { "CallPolicyFunctionWithString", (void *)_cffi_f_CallPolicyFunctionWithString, _CFFI_OP(_CFFI_OP_CPYTHON_BLTN_V, 13), (void *)_cffi_d_CallPolicyFunctionWithString },
-  { "DestroyPolicy", (void *)_cffi_f_DestroyPolicy, _CFFI_OP(_CFFI_OP_CPYTHON_BLTN_O, 6), (void *)_cffi_d_DestroyPolicy },
+  { "CallAttrBuilderPolicyFunction", (void *)_cffi_f_CallAttrBuilderPolicyFunction, _CFFI_OP(_CFFI_OP_CPYTHON_BLTN_V, 21), (void *)_cffi_d_CallAttrBuilderPolicyFunction },
+  { "CallPolicyFunction", (void *)_cffi_f_CallPolicyFunction, _CFFI_OP(_CFFI_OP_CPYTHON_BLTN_V, 12), (void *)_cffi_d_CallPolicyFunction },
+  { "CallPolicyFunctionWithBool", (void *)_cffi_f_CallPolicyFunctionWithBool, _CFFI_OP(_CFFI_OP_CPYTHON_BLTN_V, 30), (void *)_cffi_d_CallPolicyFunctionWithBool },
+  { "CallPolicyFunctionWithString", (void *)_cffi_f_CallPolicyFunctionWithString, _CFFI_OP(_CFFI_OP_CPYTHON_BLTN_V, 16), (void *)_cffi_d_CallPolicyFunctionWithString },
+  { "DestroyPolicy", (void *)_cffi_f_DestroyPolicy, _CFFI_OP(_CFFI_OP_CPYTHON_BLTN_O, 9), (void *)_cffi_d_DestroyPolicy },
+  { "FreeCString", (void *)_cffi_f_FreeCString, _CFFI_OP(_CFFI_OP_CPYTHON_BLTN_O, 6), (void *)_cffi_d_FreeCString },
   { "NewPolicy", (void *)_cffi_f_NewPolicy, _CFFI_OP(_CFFI_OP_CPYTHON_BLTN_N, 4), (void *)_cffi_d_NewPolicy },
   { "SanitizeWithPolicy", (void *)_cffi_f_SanitizeWithPolicy, _CFFI_OP(_CFFI_OP_CPYTHON_BLTN_V, 0), (void *)_cffi_d_SanitizeWithPolicy },
   { "StrictPolicy", (void *)_cffi_f_StrictPolicy, _CFFI_OP(_CFFI_OP_CPYTHON_BLTN_N, 4), (void *)_cffi_d_StrictPolicy },
@@ -1038,12 +1078,12 @@ static const struct _cffi_type_context_s _cffi_type_context = {
   NULL,  /* no struct_unions */
   NULL,  /* no enums */
   NULL,  /* no typenames */
-  9,  /* num_globals */
+  10,  /* num_globals */
   0,  /* num_struct_unions */
   0,  /* num_enums */
   0,  /* num_typenames */
   NULL,  /* no includes */
-  34,  /* num_types */
+  37,  /* num_types */
   0,  /* flags */
 };
 
