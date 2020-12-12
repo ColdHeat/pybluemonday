@@ -28,9 +28,8 @@ jobs:
             make so
             make ffi
             mv bluemonday.*.so pybluemonday/
-            mv bluemonday.so pybluemonday/
       - name: Test
         run: |
             ls -R
             go version
-            make test
+            pytest
