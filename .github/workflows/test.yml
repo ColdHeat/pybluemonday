@@ -23,7 +23,7 @@ jobs:
       - name: Install dependencies
         run: |
             python -m pip install -r development.txt
-            go get
+            go get -d
             make clean
             make so
             make ffi
