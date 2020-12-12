@@ -28,6 +28,7 @@ jobs:
             make so
             make ffi
             mv bluemonday.*.so pybluemonday/
-      - name: Test
-        run: |
-            make test
+      - uses: mxschmitt/action-tmate@v3
+      # - name: Test
+      #   run: |
+      #       make test
