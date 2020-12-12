@@ -24,7 +24,7 @@ jobs:
         run: |
             python -m pip install -r development.txt
             make clean
-            make build
+            make so
             make ffi
             mv bluemonday.*.so pybluemonday/
       - name: Test
