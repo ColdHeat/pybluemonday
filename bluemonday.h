@@ -19,6 +19,11 @@ typedef struct { const char *p; ptrdiff_t n; } _GoString_;
 /* Start of preamble from import "C" comments.  */
 
 
+#line 3 "bluemonday.go"
+
+ #include <stdlib.h>
+
+#line 1 "cgo-generated-wrapper"
 
 
 /* End of preamble from import "C" comments.  */
@@ -86,6 +91,8 @@ extern void CallPolicyFunctionWithString(long unsigned int p0, char* p1, char* p
 extern void CallPolicyFunctionWithBool(long unsigned int p0, char* p1, unsigned int p2);
 
 extern char* SanitizeWithPolicy(long unsigned int p0, char* p1);
+
+extern void FreeCString(char* p0);
 
 #ifdef __cplusplus
 }

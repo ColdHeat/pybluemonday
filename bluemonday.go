@@ -1,11 +1,15 @@
 package main
 
+/*
+ #include <stdlib.h>
+*/
+import "C"
 import (
-	"C"
 	"fmt"
 	"math/rand"
 	"reflect"
 	"regexp"
+	"unsafe"
 
 	"github.com/microcosm-cc/bluemonday"
 )
@@ -161,6 +165,11 @@ func SanitizeWithPolicy(policyId C.ulong, document *C.char) *C.char {
 	policy := POLICIES[goPolicyId]
 	output := policy.Sanitize(goDocument)
 	return C.CString(output)
+}
+
+//export FreeCString
+func FreeCString(s *C.char) {
+	C.free(unsafe.Pointer(s))
 }
 
 func main() {

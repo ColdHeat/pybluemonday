@@ -101,6 +101,7 @@ class Policy:
 
         output = lib.SanitizeWithPolicy(self._id, document)
         b = ffi.string(output).decode()
+        lib.FreeCString(output)
         return normalize("NFKD", b)
 
     def __del__(self):
