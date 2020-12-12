@@ -6,7 +6,7 @@ pybluemonday is a library for sanitizing HTML very quickly via [bluemonday](http
 
 pybluemonday takes untrusted user generated content as an input, and will return HTML that has been sanitised against a whitelist of approved HTML elements and attributes so that you can safely include the content in your web page.
 
-**Note**: This library is in a useable state but may not have feature parity with the actual bluemonday. PRs and feedback are welcome on improving this library.
+**Note**: This library is in a useable state but is still experimental. It may not have feature parity with the actual bluemonday and is likely to sanitize HTML slightly differently than other libraries. PRs and feedback are welcome on improving this library.
 
 ## Installation
 
@@ -20,16 +20,20 @@ pip install pybluemonday
 from pybluemonday import UGCPolicy
 s = UGCPolicy()
 
-print(s.sanitize("<script>alert(1)</script><b class='stuff'>testing</b>"))  # <b>testing</b>
+print(s.sanitize("<script>alert(1)</script><b class='stuff'>testing</b>"))
+# <b>testing</b>
+
 s.AllowAttrs("class", "style").Globally()
-print(s.sanitize("<script>alert(1)</script><b class='stuff' style='color: red;'>testing</b>")  # <b class="stuff" style="color: red;">testing</b>
+print(s.sanitize("<script>alert(1)</script><b class='stuff' style='color: red;'>testing</b>")
+# <b class="stuff" style="color: red;">testing</b>
 ```
 
 ```python
 from pybluemonday import StrictPolicy
 s = StrictPolicy()
 
-s.sanitize("<center><b>Blog Post Title</b></center>")  # Blog Post Title
+s.sanitize("<center><b>Blog Post Title</b></center>")
+# Blog Post Title
 ```
 
 ## How does this work?
