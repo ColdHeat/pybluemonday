@@ -28,6 +28,7 @@ jobs:
             make so
             make ffi
             mv bluemonday.*.so pybluemonday/
+            ls -R
       - name: Test
         run: |
             make test
