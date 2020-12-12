@@ -1,8 +1,9 @@
 from typing import List
+from unicodedata import normalize
 
 from pybluemonday.bluemonday import ffi, lib
 
-__version__ = "0.0.1"
+__version__ = "0.0.2"
 
 
 class AttrPolicyBuilder:
@@ -99,7 +100,8 @@ class Policy:
             document = document.encode()
 
         output = lib.SanitizeWithPolicy(self._id, document)
-        return ffi.string(output).decode()
+        b = ffi.string(output).decode()
+        return normalize("NFKD", b)
 
     def __del__(self):
         lib.DestroyPolicy(self._id)

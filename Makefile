@@ -9,3 +9,6 @@ clean:
 	rm bluemonday.o
 	rm bluemonday.h
 	rm bluemonday.c
+
+test:
+	python -m pytest
