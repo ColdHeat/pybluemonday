@@ -48,9 +48,14 @@ Since pybluemonday is just bindings for [bluemonday](https://github.com/microcos
 
 Always take benchmarks with a grain of salt but when compared to other similar Python sanitizing libraries pybluemonday executes far faster:
 
+![](benchmarks.png)
+
 ```
 ❯ python benchmarks.py
-bleach (20000 sanitizations): 36.573391182
-html_sanitizer (20000 sanitizations): 17.280117869
-bluemonday (20000 sanitizations): 0.6063146659999958
+bleach (20000 sanitizations): 37.613802053
+html_sanitizer (20000 sanitizations): 17.645683948
+lxml Cleaner (20000 sanitizations): 10.500760227999997
+pybluemonday (20000 sanitizations): 0.6188559669999876
 ```
+
+Benchmarks taken on a MacBook Pro 15-inch, 2016 (2.7 GHz Intel Core i7, 16 GB RAM)

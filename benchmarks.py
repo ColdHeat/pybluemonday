@@ -3,12 +3,16 @@ Install the following dependencies:
 
 html-sanitizer==1.9.1
 bleach==3.2.1
+lxml==4.6.2
+html5lib==1.1
 """
 
 from bleach.sanitizer import Cleaner as BleachSanitizer
 from html_sanitizer import Sanitizer as HTMLSanitizerSanitizer
-
+from lxml.html import html5parser, tostring
+from lxml.html.clean import Cleaner
 from pybluemonday import UGCPolicy as BlueMondaySanitizer
+
 
 # Snipppet from https://lxml.de/lxmlhtml.html#cleaning-up-html
 TEST = """
@@ -41,6 +45,7 @@ TEST = """
 BLUE_MONDAY = BlueMondaySanitizer()
 HTML_SANITIZER = HTMLSanitizerSanitizer()
 BLEACH_SANITIZER = BleachSanitizer()
+LXML_SANITIZER = Cleaner()
 
 
 def test_bleach():
@@ -51,6 +56,10 @@ def test_html_sanitizer():
     HTML_SANITIZER.sanitize(TEST)
 
 
+def test_lxml_sanitizer():
+    LXML_SANITIZER.clean_html(TEST)
+
+
 def test_bluemonday():
     BLUE_MONDAY.sanitize(TEST)
 
@@ -58,19 +67,40 @@ def test_bluemonday():
 if __name__ == "__main__":
     import timeit
 
-    print(
-        "bleach (20000 sanitizations):",
+    x = [
+        "bleach",
+        "html_sanitizer",
+        "lxml Cleaner",
+        "pybluemonday",
+    ]
+
+    y = [
         timeit.timeit("test_bleach()", globals=locals(), number=20000),
-    )
-    print(
-        "html_sanitizer (20000 sanitizations):",
         timeit.timeit("test_html_sanitizer()", globals=locals(), number=20000),
-    )
-    print(
-        "bluemonday (20000 sanitizations):",
+        timeit.timeit("test_lxml_sanitizer()", globals=locals(), number=20000),
         timeit.timeit(
             "test_bluemonday()",
             globals=locals(),
             number=20000,
         ),
-    )
+    ]
+
+    for name, result in list(zip(x, y)):
+        print(name, "(20000 sanitizations):", result)
+
+    import seaborn as sns
+    import matplotlib.pyplot as plt
+
+    chart = sns.barplot(x=x, y=y)
+    chart.set_title("Time Taken to Sanitize HTML (20000 iterations, lower is better)")
+    chart.set_xlabel("Library")
+    chart.set_ylabel("Time (seconds)")
+    for p in chart.patches:
+        chart.annotate(
+            f"{round(p.get_height(), 2)} s",
+            (p.get_x() + 0.4, p.get_height()),
+            ha="center",
+            va="bottom",
+            color="black",
+        )
+    plt.show()
