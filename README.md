@@ -40,7 +40,7 @@ s.sanitize("<center><b>Blog Post Title</b></center>")
 
 pybluemonday is a binding to [bluemonday](https://github.com/microcosm-cc/bluemonday) through a shared library built through cgo. However, instead of replicating the entire API, pybluemonday uses reflection on the Go side and some type checking on the Python side to call the right bluemonday function when you try to call a method.
 
-Essentially you want to create a Policy with the provided `pybluemonday.UGCPolicy`, `pybluemonday.StrictPolicy`, and `pybluemonday.NewPolicy` classes and then call methods that map to appropriate [bluemonday struct method](https://pkg.go.dev/github.com/microcosm-cc/bluemonday#Policy).
+Essentially you want to create a Policy with the provided `pybluemonday.UGCPolicy`, `pybluemonday.StrictPolicy`, and `pybluemonday.NewPolicy` classes and then call methods that map to the appropriate [bluemonday struct method](https://pkg.go.dev/github.com/microcosm-cc/bluemonday#Policy).
 
 This is an open area of improvement but gets reasonable coverage of the original bluemonday interface.
 
