@@ -31,13 +31,14 @@ jobs:
           choco install golang -f -y
           choco install mingw -f -y
 
-      - name: Build Linux wheels
+      - name: Build Linux wheels and sdist
         if: runner.os == 'Linux'
         env:
           CIBW_BEFORE_ALL: 'pwd && ls && chmod +x ./scripts/setup-linux.sh && ./scripts/setup-linux.sh'
           CIBW_BUILD: cp3?-*
           CIBW_SKIP: "cp35-* *-win32 *-manylinux_i686 *-manylinux_aarch64 *-manylinux_ppc64le *-manylinux_s390x"
         run: |
+          python setup.py sdist
           python3 -m cibuildwheel --output-dir wheelhouse
 
       - name: Build macOS wheels
@@ -58,6 +59,25 @@ jobs:
           go version
           python -m cibuildwheel --output-dir wheelhouse
 
+      - name: Publish sdist
+        if: runner.os == 'Linux'
+        env:
+          TWINE_USERNAME: ${{ secrets.PYPI_USERNAME }}
+          TWINE_PASSWORD: ${{ secrets.PYPI_PASSWORD }}
+        run: |
+          twine check ./dist/*.tar.gz
+          twine upload --skip-existing ./dist/*
+
       - uses: actions/upload-artifact@v2
         with:
-          path: ./wheelhouse/*.whl
+          path: |
+           ./wheelhouse/*.whl
+           ./dist/*.tar.gz
+
+      - name: Publish wheels
+        env:
+          TWINE_USERNAME: ${{ secrets.PYPI_USERNAME }}
+          TWINE_PASSWORD: ${{ secrets.PYPI_PASSWORD }}
+        run: |
+          twine check ./wheelhouse/*.whl
+          twine upload --skip-existing ./wheelhouse/*
