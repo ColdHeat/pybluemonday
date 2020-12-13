@@ -1,4 +1,4 @@
-# 0.0.3 / unreleased
+# 0.0.3 / 2020-12-13
 
 - Fixed memory leak caused by returning a CString from Go
 
