@@ -3,6 +3,9 @@ name: Build wheels
 on:
  release:
    types: [created, edited]
+  push:
+  pull_request:
+    types: [opened, reopened, edited, synchronize]
 
 jobs:
   build_wheels:
@@ -82,6 +85,7 @@ jobs:
         env:
           TWINE_USERNAME: ${{ secrets.PYPI_USERNAME }}
           TWINE_PASSWORD: ${{ secrets.PYPI_PASSWORD }}
+        if: ${{ github.event_name == 'release' && env.TWINE_USERNAME != null }}
         run: |
           twine check ./wheelhouse/*.whl
           twine upload --skip-existing ./wheelhouse/*
