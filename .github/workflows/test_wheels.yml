@@ -1,8 +1,6 @@
-name: Build wheels
+name: Build wheels for PR
 
-on:
- release:
-   types: [created, edited]
+on: [pull_request]
 
 jobs:
   build_wheels:
@@ -63,25 +61,6 @@ jobs:
         run: |
           python -m cibuildwheel --output-dir wheelhouse
 
-      - name: Publish sdist
-        if: runner.os == 'Linux'
-        env:
-          TWINE_USERNAME: ${{ secrets.PYPI_USERNAME }}
-          TWINE_PASSWORD: ${{ secrets.PYPI_PASSWORD }}
-        run: |
-          twine check ./dist/*.tar.gz
-          twine upload --skip-existing ./dist/*
-
       - uses: actions/upload-artifact@v2
         with:
-          path: |
-           ./wheelhouse/*.whl
-           ./dist/*.tar.gz
-
-      - name: Publish wheels
-        env:
-          TWINE_USERNAME: ${{ secrets.PYPI_USERNAME }}
-          TWINE_PASSWORD: ${{ secrets.PYPI_PASSWORD }}
-        run: |
-          twine check ./wheelhouse/*.whl
-          twine upload --skip-existing ./wheelhouse/*
+          path: ./wheelhouse/*.whl
