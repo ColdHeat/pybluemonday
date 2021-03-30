@@ -52,7 +52,7 @@ jobs:
       - name: Build ARM64 wheel
         if: runner.os == 'Linux'
         env:
-          CIBW_BEFORE_ALL: 'pwd && ls && chmod +x ./scripts/setup-arm64.sh && ./scripts/setup-arm64.sh'
+          CIBW_BEFORE_ALL: 'pwd && ls && chmod +x ./scripts/setup-arm64.sh && ./scripts/setup-arm64.sh && apt-get update && apt-get install -y libffi-dev'
           CIBW_ARCHS_LINUX: aarch64
         run: |
           python3 -m cibuildwheel --output-dir wheelhouse
