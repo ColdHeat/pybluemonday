@@ -1,8 +1,8 @@
 name: Build wheels
 
 on:
- release:
-   types: [created, edited]
+  release:
+    types: [created, edited]
   push:
   pull_request:
     types: [opened, reopened, edited, synchronize]
