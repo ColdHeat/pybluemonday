@@ -32,12 +32,16 @@ jobs:
           choco install golang -f -y
           choco install mingw -f -y
 
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v1
+        if: runner.os == 'Linux'
+
       - name: Build Linux wheels and sdist
         if: runner.os == 'Linux'
         env:
           CIBW_BEFORE_ALL: 'pwd && ls && chmod +x ./scripts/setup-linux.sh && ./scripts/setup-linux.sh'
           CIBW_BUILD: cp3?-*
-          CIBW_SKIP: "cp35-* *-win32 *-manylinux_i686 *-manylinux_aarch64 *-manylinux_ppc64le *-manylinux_s390x"
+          CIBW_SKIP: "cp35-* *-win32 *-manylinux_i686 *-manylinux_ppc64le *-manylinux_s390x"
         run: |
           python setup.py sdist
           python3 -m cibuildwheel --output-dir wheelhouse
