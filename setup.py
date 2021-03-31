@@ -1,5 +1,19 @@
+import os
 import setuptools
 import re
+
+uname = os.uname()
+print(uname)
+if uname.machine == "Darwin":
+    os.system("./scripts/setup-macos.sh")
+elif uname.machine == "Linux":
+    if uname.machine.startswith("arm"):
+        if uname.machine == "armv8l":
+            os.system("./scripts/setup-arm64.sh")
+        elif uname.machine in ("armv7l", "armv6l"):
+            os.system("./scripts/setup-armv6l.sh")
+    else:
+        os.system("./scripts/setup-linux.sh")
 
 with open("pybluemonday/__init__.py", "r", encoding="utf8") as f:
     version = re.search(r'__version__ = "(.*?)"', f.read()).group(1)
