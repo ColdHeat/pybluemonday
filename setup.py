@@ -9,11 +9,11 @@ uname = platform.uname()
 print(uname)
 
 # Install OSX Golang if needed
-if uname.sysname == "Darwin":
+if uname.system == "Darwin":
     os.system("./scripts/setup-macos.sh")
 
 # Install Linux Golang if needed
-elif uname.sysname == "Linux":
+elif uname.system == "Linux":
     if uname.machine == "aarch64":
         os.system("./scripts/setup-arm64.sh")
     elif uname.machine in ("armv7l", "armv6l"):
