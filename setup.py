@@ -14,7 +14,7 @@ if uname.sysname == "Darwin":
 # Install Linux Golang if needed
 elif uname.sysname == "Linux":
     if uname.machine.startswith("arm"):
-        if uname.machine == "armv8l":
+        if uname.machine == "aarch64":
             os.system("./scripts/setup-arm64.sh")
         elif uname.machine in ("armv7l", "armv6l"):
             os.system("./scripts/setup-arm6vl.sh")
