@@ -42,7 +42,6 @@ jobs:
       - name: Build Linux wheels and sdist
         if: runner.os == 'Linux'
         env:
-          CIBW_BEFORE_ALL: 'pwd && ls && chmod +x ./scripts/setup-linux.sh && ./scripts/setup-linux.sh'
           CIBW_BUILD: cp3?-*
           CIBW_SKIP: "cp35-* *-win32 *-manylinux_i686 *-manylinux_aarch64 *-manylinux_ppc64le *-manylinux_s390x"
         run: |
@@ -52,7 +51,6 @@ jobs:
       - name: Build ARM64 wheel
         if: runner.os == 'Linux'
         env:
-          CIBW_BEFORE_ALL: 'pwd && ls && chmod +x ./scripts/setup-arm64.sh && ./scripts/setup-arm64.sh'
           CIBW_ARCHS_LINUX: aarch64
         run: |
           python3 -m cibuildwheel --output-dir wheelhouse
@@ -60,7 +58,6 @@ jobs:
       - name: Build macOS wheels
         if: runner.os == 'macOS'
         env:
-          CIBW_BEFORE_ALL: 'pwd && ls && chmod +x ./scripts/setup-macos.sh && ./scripts/setup-macos.sh'
           CIBW_BUILD: cp3?-*
           CIBW_SKIP: "cp35-* *-win32 *-manylinux_i686 *-manylinux_aarch64 *-manylinux_ppc64le *-manylinux_s390x"
         run: |

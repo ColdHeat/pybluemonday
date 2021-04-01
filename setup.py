@@ -2,8 +2,35 @@ import os
 import setuptools
 import re
 
+# Print out our uname for debugging purposes
 uname = os.uname()
 print(uname)
+
+# Install OSX Golang if needed
+if uname.machine == "Darwin":
+    os.system("./scripts/setup-macos.sh")
+
+# Install Linux Golang if needed
+elif uname.machine == "Linux":
+    if uname.machine.startswith("arm"):
+        if uname.machine == "armv8l":
+            os.system("./scripts/setup-arm64.sh")
+        elif uname.machine in ("armv7l", "armv6l"):
+            os.system("./scripts/setup-armv6l.sh")
+    else:
+        os.system("./scripts/setup-linux.sh")
+
+# Add in our downloaded Go compiler to PATH
+os.environ["PATH"] += os.path.join(os.getcwd(), "go", "bin")
+
+# Clean out any existing files
+os.system("make clean")
+
+# Build the Go shared module for whatever OS we're on
+os.system("make so")
+
+# Build the CFFI headers
+os.system("make ffi")
 
 with open("pybluemonday/__init__.py", "r", encoding="utf8") as f:
     version = re.search(r'__version__ = "(.*?)"', f.read()).group(1)
