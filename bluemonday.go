@@ -14,16 +14,16 @@ import (
 	"github.com/microcosm-cc/bluemonday"
 )
 
-var POLICIES = map[uint64]*bluemonday.Policy{}
+var POLICIES = map[uint32]*bluemonday.Policy{}
 
-func GetPolicyId() uint64 {
-	policyId := rand.Uint64()
+func GetPolicyId() uint32 {
+	policyId := rand.Uint32()
 
 	for {
 		if POLICIES[policyId] == nil {
 			break
 		} else {
-			policyId = rand.Uint64()
+			policyId = rand.Uint32()
 		}
 	}
 	return policyId
@@ -55,13 +55,13 @@ func UGCPolicy() C.ulong {
 
 //export DestroyPolicy
 func DestroyPolicy(policyId C.ulong) {
-	goPolicyId := uint64(policyId)
+	goPolicyId := uint32(policyId)
 	delete(POLICIES, goPolicyId)
 }
 
 //export CallAttrBuilderPolicyFunction
 func CallAttrBuilderPolicyFunction(policyId C.ulong, policyMethod *C.char, policyArgument *C.char, valueFunction *C.char, valueFilter *C.char, selectorFunction *C.char, selectorValue *C.char) {
-	goPolicyId := uint64(policyId)
+	goPolicyId := uint32(policyId)
 	goPolicyMethod := C.GoString(policyMethod)
 	goPolicyArgument := C.GoString(policyArgument)
 	goValueFunction := C.GoString(valueFunction)
@@ -125,7 +125,7 @@ func CallAttrBuilderPolicyFunction(policyId C.ulong, policyMethod *C.char, polic
 
 //export CallPolicyFunction
 func CallPolicyFunction(policyId C.ulong, method *C.char) {
-	goPolicyId := uint64(policyId)
+	goPolicyId := uint32(policyId)
 	goMethod := C.GoString(method)
 
 	policy := POLICIES[goPolicyId]
@@ -135,7 +135,7 @@ func CallPolicyFunction(policyId C.ulong, method *C.char) {
 
 //export CallPolicyFunctionWithString
 func CallPolicyFunctionWithString(policyId C.ulong, method *C.char, argument *C.char) {
-	goPolicyId := uint64(policyId)
+	goPolicyId := uint32(policyId)
 	goMethod := C.GoString(method)
 	goArgument := C.GoString(argument)
 
@@ -147,7 +147,7 @@ func CallPolicyFunctionWithString(policyId C.ulong, method *C.char, argument *C.
 
 //export CallPolicyFunctionWithBool
 func CallPolicyFunctionWithBool(policyId C.ulong, method *C.char, argument C.uint) {
-	goPolicyId := uint64(policyId)
+	goPolicyId := uint32(policyId)
 	goMethod := C.GoString(method)
 	goArgument := int(argument) != 0
 
@@ -159,7 +159,7 @@ func CallPolicyFunctionWithBool(policyId C.ulong, method *C.char, argument C.uin
 
 //export SanitizeWithPolicy
 func SanitizeWithPolicy(policyId C.ulong, document *C.char) *C.char {
-	goPolicyId := uint64(policyId)
+	goPolicyId := uint32(policyId)
 	goDocument := C.GoString(document)
 
 	policy := POLICIES[goPolicyId]
