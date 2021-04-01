@@ -33,6 +33,7 @@ jobs:
           choco install vcpython27 -f -y
           choco install golang -f -y
           choco install mingw -f -y
+          go get -d
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v1
