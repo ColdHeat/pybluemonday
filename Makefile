@@ -2,7 +2,7 @@ so:
 	go build -buildmode=c-shared -o bluemonday.so .
 
 ffi:
-	python build_ffi.py
+	python3 build_ffi.py
 
 clean:
 	rm -f bluemonday.so
