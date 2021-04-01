@@ -23,7 +23,7 @@ jobs:
       - name: Install dependencies
         run: |
             python -m pip install -r development.txt
-            python -m pip install .
+            python setup.py install
       - name: Test
         # For some reason .so's being built aren't working and I have no idea why.
         # Let python use the wheel that we installed above by deleting the module in the folder
