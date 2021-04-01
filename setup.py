@@ -17,7 +17,7 @@ elif uname.sysname == "Linux":
         if uname.machine == "armv8l":
             os.system("./scripts/setup-arm64.sh")
         elif uname.machine in ("armv7l", "armv6l"):
-            os.system("./scripts/setup-armv6l.sh")
+            os.system("./scripts/setup-arm6vl.sh")
     else:
         os.system("./scripts/setup-linux.sh")
 
