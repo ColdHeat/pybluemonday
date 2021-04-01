@@ -13,20 +13,17 @@ if uname.sysname == "Darwin":
 
 # Install Linux Golang if needed
 elif uname.sysname == "Linux":
-    if uname.machine.startswith("arm"):
-        if uname.machine == "aarch64":
-            os.system("./scripts/setup-arm64.sh")
-        elif uname.machine in ("armv7l", "armv6l"):
-            os.system("./scripts/setup-arm6vl.sh")
+    if uname.machine == "aarch64":
+        os.system("./scripts/setup-arm64.sh")
+    elif uname.machine in ("armv7l", "armv6l"):
+        os.system("./scripts/setup-arm6vl.sh")
     else:
         os.system("./scripts/setup-linux.sh")
 
 # Add in our downloaded Go compiler to PATH
 old_path = os.environ["PATH"]
 new_path = os.path.join(os.getcwd(), "go", "bin")
-env = {
-    "PATH": f"{old_path}:{new_path}"
-}
+env = {"PATH": f"{old_path}:{new_path}"}
 env = dict(os.environ, **env)
 os.environ["PATH"] = f"{old_path}:{new_path}"
 
