@@ -1,10 +1,11 @@
 import os
+import platform
 import setuptools
 import subprocess
 import re
 
 # Print out our uname for debugging purposes
-uname = os.uname()
+uname = platform.uname()
 print(uname)
 
 # Install OSX Golang if needed
