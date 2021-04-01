@@ -24,7 +24,7 @@ print(s.sanitize("<script>alert(1)</script><b class='stuff'>testing</b>"))
 # <b>testing</b>
 
 s.AllowAttrs("class", "style").Globally()
-print(s.sanitize("<script>alert(1)</script><b class='stuff' style='color: red;'>testing</b>")
+print(s.sanitize("<script>alert(1)</script><b class='stuff' style='color: red;'>testing</b>"))
 # <b class="stuff" style="color: red;">testing</b>
 ```
 
