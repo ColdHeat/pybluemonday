@@ -1,5 +1,6 @@
 import os
 import setuptools
+import subprocess
 import re
 
 # Print out our uname for debugging purposes
@@ -21,16 +22,22 @@ elif uname.sysname == "Linux":
         os.system("./scripts/setup-linux.sh")
 
 # Add in our downloaded Go compiler to PATH
-os.environ["PATH"] += os.path.join(os.getcwd(), "go", "bin")
+old_path = os.environ["PATH"]
+new_path = os.path.join(os.getcwd(), "go", "bin")
+env = {
+    "PATH": f"{old_path}:{new_path}"
+}
+env = dict(os.environ, **env)
+os.environ["PATH"] = f"{old_path}:{new_path}"
 
 # Clean out any existing files
-os.system("make clean")
+subprocess.call(["make", "clean"], env=env)
 
 # Build the Go shared module for whatever OS we're on
-os.system("make so")
+subprocess.call(["make", "so"], env=env)
 
 # Build the CFFI headers
-os.system("make ffi")
+subprocess.call(["make", "ffi"], env=env)
 
 with open("pybluemonday/__init__.py", "r", encoding="utf8") as f:
     version = re.search(r'__version__ = "(.*?)"', f.read()).group(1)
