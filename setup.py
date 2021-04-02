@@ -18,8 +18,10 @@ elif uname.system == "Linux":
         os.system("./scripts/setup-arm64.sh")
     elif uname.machine in ("armv7l", "armv6l"):
         os.system("./scripts/setup-arm6vl.sh")
-    else:
-        os.system("./scripts/setup-linux.sh")
+    elif uname.machine == "x86_64":
+        os.system("./scripts/setup-linux-64.sh")
+    elif uname.machine == "i686":
+        os.system("./scripts/setup-linux-32.sh")
 
 # Add in our downloaded Go compiler to PATH
 old_path = os.environ["PATH"]
