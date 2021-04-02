@@ -1,3 +1,7 @@
+# 0.0.4 / 2021-04-02
+
+- Fixed memory leak caused by returning a CString from Go
+
 # 0.0.3 / 2020-12-13
 
 - Fixed memory leak caused by returning a CString from Go
