@@ -1,4 +1,5 @@
 so:
+	go get -d
 	go build -buildmode=c-shared -o bluemonday.so .
 
 ffi:
