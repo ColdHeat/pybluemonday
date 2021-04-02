@@ -3,6 +3,7 @@
 - Add more wheels and fix the ones that were broken (Windows)
 - Pin versions with go.mod
 - Make setup.py bootstrap itself to hopefully support building armv6 wheels
+- Use uint32 instead of uint64 so we can support 32bit wheels
 - Make pypi releases integrated into Github releases with Github Actions
 
 # 0.0.3 / 2020-12-13
