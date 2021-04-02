@@ -37,6 +37,7 @@ subprocess.call(["make", "clean"], env=env)
 subprocess.call(["make", "so"], env=env)
 
 # Build the CFFI headers
+subprocess.call(["pip", "install", "cffi~=1.1"], env=env)
 subprocess.call(["make", "ffi"], env=env)
 
 with open("pybluemonday/__init__.py", "r", encoding="utf8") as f:
