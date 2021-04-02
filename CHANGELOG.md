@@ -1,6 +1,9 @@
 # 0.0.4 / 2021-04-02
 
-- Fixed memory leak caused by returning a CString from Go
+- Add more wheels and fix the ones that were broken (Windows)
+- Pin versions with go.mod
+- Make setup.py bootstrap itself to hopefully support building armv6 wheels
+- Make pypi releases integrated into Github releases with Github Actions
 
 # 0.0.3 / 2020-12-13
 
