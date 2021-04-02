@@ -44,6 +44,7 @@ jobs:
         env:
           CIBW_BUILD: cp3?-*
           CIBW_SKIP: "cp35-* *-win32 *-manylinux_i686 *-manylinux_aarch64 *-manylinux_ppc64le *-manylinux_s390x"
+          CIBW_BUILD_VERBOSITY: 1
         run: |
           python setup.py sdist
           python3 -m cibuildwheel --output-dir wheelhouse
@@ -52,6 +53,7 @@ jobs:
         if: runner.os == 'Linux'
         env:
           CIBW_ARCHS_LINUX: i686
+          CIBW_BUILD_VERBOSITY: 1
         run: |
           python3 -m cibuildwheel --output-dir wheelhouse
 
@@ -59,6 +61,7 @@ jobs:
         if: runner.os == 'Linux'
         env:
           CIBW_ARCHS_LINUX: aarch64
+          CIBW_BUILD_VERBOSITY: 1
         run: |
           python3 -m cibuildwheel --output-dir wheelhouse
 
@@ -67,6 +70,7 @@ jobs:
         env:
           CIBW_BUILD: cp3?-*
           CIBW_SKIP: "cp35-* *-win32 *-manylinux_i686 *-manylinux_aarch64 *-manylinux_ppc64le *-manylinux_s390x"
+          CIBW_BUILD_VERBOSITY: 1
         run: |
           python3 -m cibuildwheel --output-dir wheelhouse
 
@@ -75,6 +79,7 @@ jobs:
         env:
           CIBW_BUILD: cp3?-*
           CIBW_SKIP: "cp35-* *-win32 *-manylinux_i686 *-manylinux_aarch64 *-manylinux_ppc64le *-manylinux_s390x"
+          CIBW_BUILD_VERBOSITY: 1
         run: |
           python -m cibuildwheel --output-dir wheelhouse
 
