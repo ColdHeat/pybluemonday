@@ -18,8 +18,10 @@ elif uname.system == "Linux":
         os.system("./scripts/setup-arm64.sh")
     elif uname.machine in ("armv7l", "armv6l"):
         os.system("./scripts/setup-arm6vl.sh")
-    else:
-        os.system("./scripts/setup-linux.sh")
+    elif uname.machine == "x86_64":
+        os.system("./scripts/setup-linux-64.sh")
+    elif uname.machine == "i686":
+        os.system("./scripts/setup-linux-32.sh")
 
 # Add in our downloaded Go compiler to PATH
 old_path = os.environ["PATH"]
@@ -35,6 +37,7 @@ subprocess.call(["make", "clean"], env=env)
 subprocess.call(["make", "so"], env=env)
 
 # Build the CFFI headers
+subprocess.call(["pip", "install", "cffi~=1.1"], env=env)
 subprocess.call(["make", "ffi"], env=env)
 
 with open("pybluemonday/__init__.py", "r", encoding="utf8") as f:
