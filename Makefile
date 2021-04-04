@@ -7,9 +7,12 @@ ffi:
 
 clean:
 	rm -f bluemonday.so
+	rm -f bluemonday.*.so
 	rm -f bluemonday.o
 	rm -f bluemonday.h
 	rm -f bluemonday.c
+	rm -rf build/
+	rm -rf dist/
 
 test:
 	python -m pytest
