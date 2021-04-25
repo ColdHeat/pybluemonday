@@ -1,4 +1,4 @@
-name: Build wheels
+name: Build wheels on Python 3.5
 
 on:
   release:
@@ -42,8 +42,8 @@ jobs:
       - name: Build Linux wheels and sdist
         if: runner.os == 'Linux'
         env:
-          CIBW_BUILD: cp3?-*
-          CIBW_SKIP: "cp35-* *-win32 *-manylinux_i686 *-manylinux_aarch64 *-manylinux_ppc64le *-manylinux_s390x"
+          CIBW_BUILD: cp35-*
+          CIBW_SKIP: "*-win32 *-manylinux_i686 *-manylinux_aarch64 *-manylinux_ppc64le *-manylinux_s390x"
           CIBW_BUILD_VERBOSITY: 1
         run: |
           python setup.py sdist
@@ -68,8 +68,8 @@ jobs:
       - name: Build macOS wheels
         if: runner.os == 'macOS'
         env:
-          CIBW_BUILD: cp3?-*
-          CIBW_SKIP: "cp35-* *-win32 *-manylinux_i686 *-manylinux_aarch64 *-manylinux_ppc64le *-manylinux_s390x"
+          CIBW_BUILD: cp35-*
+          CIBW_SKIP: "*-win32 *-manylinux_i686 *-manylinux_aarch64 *-manylinux_ppc64le *-manylinux_s390x"
           CIBW_BUILD_VERBOSITY: 1
         run: |
           python3 -m cibuildwheel --output-dir wheelhouse
@@ -77,20 +77,11 @@ jobs:
       - name: Build Windows wheels
         if: runner.os == 'Windows'
         env:
-          CIBW_BUILD: cp3?-*
-          CIBW_SKIP: "cp35-* *-win32 *-manylinux_i686 *-manylinux_aarch64 *-manylinux_ppc64le *-manylinux_s390x"
+          CIBW_BUILD: cp35-*
+          CIBW_SKIP: "*-win32 *-manylinux_i686 *-manylinux_aarch64 *-manylinux_ppc64le *-manylinux_s390x"
           CIBW_BUILD_VERBOSITY: 1
         run: |
           python -m cibuildwheel --output-dir wheelhouse
-
-      - name: Publish sdist
-        if: ${{ runner.os == 'Linux' && github.event_name == 'release' && env.TWINE_USERNAME != null }}
-        env:
-          TWINE_USERNAME: ${{ secrets.PYPI_USERNAME }}
-          TWINE_PASSWORD: ${{ secrets.PYPI_PASSWORD }}
-        run: |
-          twine check ./dist/*.tar.gz
-          twine upload --skip-existing ./dist/*
 
       - uses: actions/upload-artifact@v2
         with:
