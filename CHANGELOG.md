@@ -1,3 +1,7 @@
+# 0.0.5 / 2021-04-25
+
+- Bump bluemonday version to 1.0.9
+
 # 0.0.4 / 2021-04-02
 
 - Add more wheels and fix the ones that were broken (Windows)
