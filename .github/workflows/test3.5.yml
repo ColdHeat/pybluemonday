@@ -28,8 +28,8 @@ jobs:
           go get -d
           type python
           type pip
-          python setup.py bdist_wheel
-          pip install dist/pybluemonday*.whl
+          sudo -E /opt/hostedtoolcache/Python/3.5.10/x64/bin/python setup.py bdist_wheel
+          sudo -E /opt/hostedtoolcache/Python/3.5.10/x64/bin/pip install dist/pybluemonday*.whl
       - name: Test
         # For some reason .so's being built aren't working and I have no idea why.
         # Let python use the wheel that we installed above by deleting the module in the folder
