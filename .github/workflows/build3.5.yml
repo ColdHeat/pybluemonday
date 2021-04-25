@@ -52,6 +52,7 @@ jobs:
       - name: Build i686 wheel
         if: runner.os == 'Linux'
         env:
+          CIBW_BUILD: cp35-*
           CIBW_ARCHS_LINUX: i686
           CIBW_BUILD_VERBOSITY: 1
         run: |
@@ -60,6 +61,7 @@ jobs:
       - name: Build ARM64 wheel
         if: runner.os == 'Linux'
         env:
+          CIBW_BUILD: cp35-*
           CIBW_ARCHS_LINUX: aarch64
           CIBW_BUILD_VERBOSITY: 1
         run: |
