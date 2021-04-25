@@ -26,9 +26,9 @@ elif uname.system == "Linux":
 # Add in our downloaded Go compiler to PATH
 old_path = os.environ["PATH"]
 new_path = os.path.join(os.getcwd(), "go", "bin")
-env = {"PATH": f"{old_path}:{new_path}"}
+env = {"PATH": "{old_path}:{new_path}".format(old_path=old_path, new_path=new_path)}
 env = dict(os.environ, **env)
-os.environ["PATH"] = f"{old_path}:{new_path}"
+os.environ["PATH"] = "{old_path}:{new_path}".format(old_path=old_path, new_path=new_path)
 
 # Clean out any existing files
 subprocess.call(["make", "clean"], env=env)
