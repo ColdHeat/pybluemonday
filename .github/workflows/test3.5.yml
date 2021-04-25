@@ -27,6 +27,7 @@ jobs:
         run: |
           go get -d
           type python
+          type pip
           python setup.py bdist_wheel
           pip install dist/pybluemonday*.whl
       - name: Test
