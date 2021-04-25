@@ -26,7 +26,8 @@ jobs:
       - name: Build wheel
         run: |
           go get -d
-          sudo -E python setup.py bdist_wheel
+          sudo -E /usr/local/bin/python --version
+          sudo -E /usr/local/bin/python setup.py bdist_wheel
           pip install dist/pybluemonday*.whl
       - name: Test
         # For some reason .so's being built aren't working and I have no idea why.
