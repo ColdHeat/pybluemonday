@@ -39,6 +39,11 @@ jobs:
         uses: docker/setup-qemu-action@v1
         if: runner.os == 'Linux'
 
+      - name: Install apt dependencies
+        if: runner.os == 'Linux'
+        run: |
+          sudo apt-get install libffi-dev
+
       - name: Build Linux wheels and sdist
         if: runner.os == 'Linux'
         env:
