@@ -26,6 +26,7 @@ jobs:
       - name: Build wheel
         run: |
           go get -d
+          type python
           sudo -E /usr/local/bin/python --version
           sudo -E /usr/local/bin/python setup.py bdist_wheel
           pip install dist/pybluemonday*.whl
