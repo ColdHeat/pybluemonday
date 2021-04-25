@@ -67,7 +67,7 @@ setuptools.setup(
     ext_modules=[setuptools.Extension("pybluemonday/bluemonday", ["bluemonday.go"])],
     setup_requires=[
         "setuptools-golang==1.7.0; python_version < '3.6'",
-        "setuptools-golang==2.3.0",
+        "setuptools-golang==2.3.0; python_version >= '3.6'",
         "cffi~=1.1"
     ],
     install_requires=["cffi~=1.1"],
