@@ -43,7 +43,7 @@ jobs:
         if: runner.os == 'Linux'
         env:
           CIBW_BUILD: cp3?-*
-          CIBW_SKIP: "cp35-* *-win32 *-manylinux_i686 *-manylinux_aarch64 *-manylinux_ppc64le *-manylinux_s390x"
+          CIBW_SKIP: "*-win32 *-manylinux_i686 *-manylinux_aarch64 *-manylinux_ppc64le *-manylinux_s390x"
           CIBW_BUILD_VERBOSITY: 1
         run: |
           python setup.py sdist
@@ -69,7 +69,7 @@ jobs:
         if: runner.os == 'macOS'
         env:
           CIBW_BUILD: cp3?-*
-          CIBW_SKIP: "cp35-* *-win32 *-manylinux_i686 *-manylinux_aarch64 *-manylinux_ppc64le *-manylinux_s390x"
+          CIBW_SKIP: "*-win32 *-manylinux_i686 *-manylinux_aarch64 *-manylinux_ppc64le *-manylinux_s390x"
           CIBW_BUILD_VERBOSITY: 1
         run: |
           python3 -m cibuildwheel --output-dir wheelhouse
@@ -78,7 +78,7 @@ jobs:
         if: runner.os == 'Windows'
         env:
           CIBW_BUILD: cp3?-*
-          CIBW_SKIP: "cp35-* *-win32 *-manylinux_i686 *-manylinux_aarch64 *-manylinux_ppc64le *-manylinux_s390x"
+          CIBW_SKIP: "*-win32 *-manylinux_i686 *-manylinux_aarch64 *-manylinux_ppc64le *-manylinux_s390x"
           CIBW_BUILD_VERBOSITY: 1
         run: |
           python -m cibuildwheel --output-dir wheelhouse
