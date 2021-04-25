@@ -61,7 +61,7 @@ setuptools.setup(
         "License :: OSI Approved :: MIT License",
         "Operating System :: OS Independent",
     ],
-    python_requires=">=3.6",
+    python_requires=">=3.5",
     # I'm not sure what this value is supposed to be
     build_golang={"root": "github.com/ColdHeat/pybluemonday"},
     ext_modules=[setuptools.Extension("pybluemonday/bluemonday", ["bluemonday.go"])],
