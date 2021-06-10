@@ -1,3 +1,7 @@
+# 0.0.6 / 2021-06-10
+
+- Bump bluemonday version to 1.0.10
+
 # 0.0.5 / 2021-04-25
 
 - Bump bluemonday version to 1.0.9

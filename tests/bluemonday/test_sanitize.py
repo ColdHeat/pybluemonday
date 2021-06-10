@@ -108,3 +108,10 @@ def test_LinkTargets():
 
     pool = ThreadPool(4)
     pool.map(test_cases, cases)
+
+
+def test_AllowComments():
+    p = UGCPolicy()
+    assert p.sanitize("1 <!-- 2 --> 3") == "1  3"
+    p.AllowComments()
+    assert p.sanitize("1 <!-- 2 --> 3") == "1 <!-- 2 --> 3"
