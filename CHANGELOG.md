@@ -1,3 +1,7 @@
+# 0.0.7 / UNRELEASED
+
+- Bump bluemonday version to 1.0.15
+
 # 0.0.6 / 2021-06-10
 
 - Bump bluemonday version to 1.0.10

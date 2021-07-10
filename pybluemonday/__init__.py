@@ -3,7 +3,7 @@ from unicodedata import normalize
 
 from pybluemonday.bluemonday import ffi, lib
 
-__version__ = "0.0.6"
+__version__ = "0.0.7"
 
 
 class AttrPolicyBuilder:
