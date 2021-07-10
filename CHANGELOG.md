@@ -1,4 +1,4 @@
-# 0.0.7 / UNRELEASED
+# 0.0.7 / 2021-07-09
 
 - Bump bluemonday version to 1.0.15
 
