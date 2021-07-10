@@ -43,15 +43,15 @@ def test_Links():
         Case("""<a href="#">""", ""),
         Case("""<a href="#top">""", """<a href="#top" rel="nofollow">"""),
         Case("""<a href="?q=1">""", """<a href="?q=1" rel="nofollow">"""),
-        Case("""<a href="?q=1&r=2">""", """<a href="?q=1&r=2" rel="nofollow">"""),
-        Case("""<a href="?q=1&q=2">""", """<a href="?q=1&q=2" rel="nofollow">"""),
+        Case("""<a href="?q=1&r=2">""", """<a href="?q=1&amp;r=2" rel="nofollow">"""),
+        Case("""<a href="?q=1&q=2">""", """<a href="?q=1&amp;q=2" rel="nofollow">"""),
         Case(
             """<a href="?q=%7B%22value%22%3A%22a%22%7D">""",
             """<a href="?q=%7B%22value%22%3A%22a%22%7D" rel="nofollow">""",
         ),
         Case(
             """<a href="?q=1&r=2&s=:foo@">""",
-            """<a href="?q=1&r=2&s=%3Afoo%40" rel="nofollow">""",
+            """<a href="?q=1&amp;r=2&amp;s=%3Afoo%40" rel="nofollow">""",
         ),
         Case(
             """<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAHElEQVQI12P4//8/w38GIAXDIBKE0DHxgljNBAAO9TXL0Y4OHwAAAABJRU5ErkJggg==" alt="Red dot" />""",
@@ -60,7 +60,7 @@ def test_Links():
         Case("""<img src="giraffe.gif" />""", """<img src="giraffe.gif"/>"""),
         Case(
             """<img src="giraffe.gif?height=500&width=500" />""",
-            """<img src="giraffe.gif?height=500&width=500"/>""",
+            """<img src="giraffe.gif?height=500&amp;width=500"/>""",
         ),
     ]
 
