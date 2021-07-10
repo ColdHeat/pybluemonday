@@ -43,15 +43,15 @@ def test_Links():
         Case("""<a href="#">""", ""),
         Case("""<a href="#top">""", """<a href="#top" rel="nofollow">"""),
         Case("""<a href="?q=1">""", """<a href="?q=1" rel="nofollow">"""),
-        Case("""<a href="?q=1&r=2">""", """<a href="?q=1&r=2" rel="nofollow">"""),
-        Case("""<a href="?q=1&q=2">""", """<a href="?q=1&q=2" rel="nofollow">"""),
+        Case("""<a href="?q=1&r=2">""", """<a href="?q=1&amp;r=2" rel="nofollow">"""),
+        Case("""<a href="?q=1&q=2">""", """<a href="?q=1&amp;q=2" rel="nofollow">"""),
         Case(
             """<a href="?q=%7B%22value%22%3A%22a%22%7D">""",
             """<a href="?q=%7B%22value%22%3A%22a%22%7D" rel="nofollow">""",
         ),
         Case(
             """<a href="?q=1&r=2&s=:foo@">""",
-            """<a href="?q=1&r=2&s=%3Afoo%40" rel="nofollow">""",
+            """<a href="?q=1&amp;r=2&amp;s=:foo@" rel="nofollow">""",
         ),
         Case(
             """<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAHElEQVQI12P4//8/w38GIAXDIBKE0DHxgljNBAAO9TXL0Y4OHwAAAABJRU5ErkJggg==" alt="Red dot" />""",
@@ -60,7 +60,7 @@ def test_Links():
         Case("""<img src="giraffe.gif" />""", """<img src="giraffe.gif"/>"""),
         Case(
             """<img src="giraffe.gif?height=500&width=500" />""",
-            """<img src="giraffe.gif?height=500&width=500"/>""",
+            """<img src="giraffe.gif?height=500&amp;width=500"/>""",
         ),
     ]
 
@@ -115,3 +115,19 @@ def test_AllowComments():
     assert p.sanitize("1 <!-- 2 --> 3") == "1  3"
     p.AllowComments()
     assert p.sanitize("1 <!-- 2 --> 3") == "1 <!-- 2 --> 3"
+
+
+def test_HrefSanitization():
+    cases = [
+        Case(
+            """abc<a href="https://abc&quot;&gt;<script&gt;alert(1)<&#x2f;script/">CLICK""",
+            """abc<a href="https://abc&amp;quot;&gt;&lt;script&gt;alert(1)&lt;/script/" rel="nofollow">CLICK""",
+        ),
+        Case(
+            """<a href="https://abc&quot;&gt;<script&gt;alert(1)<&#x2f;script/">""",
+            """<a href="https://abc&amp;quot;&gt;&lt;script&gt;alert(1)&lt;/script/" rel="nofollow">""",
+        ),
+    ]
+    p = UGCPolicy()
+    for case in cases:
+        assert p.sanitize(case.input) == case.output
