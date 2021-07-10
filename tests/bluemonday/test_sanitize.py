@@ -51,7 +51,7 @@ def test_Links():
         ),
         Case(
             """<a href="?q=1&r=2&s=:foo@">""",
-            """<a href="?q=1&amp;r=2&amp;s=%3Afoo%40" rel="nofollow">""",
+            """<a href="?q=1&amp;r=2&amp;s=:foo@" rel="nofollow">""",
         ),
         Case(
             """<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAHElEQVQI12P4//8/w38GIAXDIBKE0DHxgljNBAAO9TXL0Y4OHwAAAABJRU5ErkJggg==" alt="Red dot" />""",
