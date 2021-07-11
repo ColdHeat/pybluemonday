@@ -65,6 +65,14 @@ jobs:
         run: |
           python3 -m cibuildwheel --output-dir wheelhouse
 
+      - name: Build ARM wheel
+        if: runner.os == 'Linux'
+        env:
+          CIBW_ARCHS_LINUX: arm
+          CIBW_BUILD_VERBOSITY: 1
+        run: |
+          python3 -m cibuildwheel --output-dir wheelhouse
+
       - name: Build macOS wheels
         if: runner.os == 'macOS'
         env:
