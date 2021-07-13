@@ -26,9 +26,9 @@ elif uname.system == "Linux":
 # Add in our downloaded Go compiler to PATH
 old_path = os.environ["PATH"]
 new_path = os.path.join(os.getcwd(), "go", "bin")
-env = {"PATH": f"{old_path}:{new_path}"}
+env = {"PATH": "{old_path}:{new_path}".format(old_path=old_path, new_path=new_path)}
 env = dict(os.environ, **env)
-os.environ["PATH"] = f"{old_path}:{new_path}"
+os.environ["PATH"] = "{old_path}:{new_path}".format(old_path=old_path, new_path=new_path)
 
 # Clean out any existing files
 subprocess.call(["make", "clean"], env=env)
@@ -61,10 +61,14 @@ setuptools.setup(
         "License :: OSI Approved :: MIT License",
         "Operating System :: OS Independent",
     ],
-    python_requires=">=3.6",
+    python_requires=">=3.5",
     # I'm not sure what this value is supposed to be
     build_golang={"root": "github.com/ColdHeat/pybluemonday"},
     ext_modules=[setuptools.Extension("pybluemonday/bluemonday", ["bluemonday.go"])],
-    setup_requires=["setuptools-golang==2.3.0", "cffi~=1.1"],
+    setup_requires=[
+        "setuptools-golang==1.7.0; python_version < '3.6'",
+        "setuptools-golang==2.3.0; python_version >= '3.6'",
+        "cffi~=1.1"
+    ],
     install_requires=["cffi~=1.1"],
 )
