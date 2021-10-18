@@ -131,3 +131,21 @@ def test_HrefSanitization():
     p = UGCPolicy()
     for case in cases:
         assert p.sanitize(case.input) == case.output
+
+
+def test_selectStyleBug():
+    # CVE-2021-42576 for bluemonday v1.0.16
+    p = NewPolicy()
+
+    # See https://github.com/ColdHeat/pybluemonday/issues/11 for why this is a loop
+    for e in ["select", "option", "style"]:
+        p.AllowElements(e)
+    assert (
+        p.sanitize("<select><option><style><script>alert(1)</script>")
+        == "<select><option>"
+    )
+    p.AllowUnsafe(True)
+    assert (
+        p.sanitize("<select><option><style><script>alert(1)</script>")
+        == "<select><option><style><script>alert(1)</script>"
+    )
