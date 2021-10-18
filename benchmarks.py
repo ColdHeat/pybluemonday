@@ -78,11 +78,7 @@ if __name__ == "__main__":
         timeit.timeit("test_bleach()", globals=locals(), number=20000),
         timeit.timeit("test_html_sanitizer()", globals=locals(), number=20000),
         timeit.timeit("test_lxml_sanitizer()", globals=locals(), number=20000),
-        timeit.timeit(
-            "test_bluemonday()",
-            globals=locals(),
-            number=20000,
-        ),
+        timeit.timeit("test_bluemonday()", globals=locals(), number=20000,),
     ]
 
     for name, result in list(zip(x, y)):
