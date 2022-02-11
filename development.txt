@@ -1,5 +1,5 @@
 setuptools-golang==2.3.0
-wheel==0.36.1
+wheel==0.37.1
 cffi==1.14.5
 black==20.8b1
 isort==5.6.4
