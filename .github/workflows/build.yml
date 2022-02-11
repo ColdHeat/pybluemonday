@@ -54,6 +54,7 @@ jobs:
         env:
           CIBW_ARCHS_LINUX: i686
           CIBW_BUILD_VERBOSITY: 1
+          CIBW_SKIP: "*-musllinux_*"
         run: |
           python3 -m cibuildwheel --output-dir wheelhouse
 
@@ -62,6 +63,7 @@ jobs:
         env:
           CIBW_ARCHS_LINUX: aarch64
           CIBW_BUILD_VERBOSITY: 1
+          CIBW_SKIP: "*-musllinux_*"
         run: |
           python3 -m cibuildwheel --output-dir wheelhouse
 
