@@ -6,4 +6,4 @@ isort==5.6.4
 twine==3.1.1
 pytest==6.1.2
 psutil==5.7.3
-cibuildwheel==1.10.0
+cibuildwheel==2.3.1

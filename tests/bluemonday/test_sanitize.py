@@ -156,7 +156,7 @@ def test_IFrameSandbox():
     p = NewPolicy()
     p.AllowAttrs("sandbox").OnElements("iframe")
     input = """<iframe src="http://example.com" sandbox="allow-forms allow-downloads allow-downloads"></iframe>"""
-    out = """<iframe sandbox="allow-downloads"></iframe>"""
+    out = """<iframe sandbox="allow-forms allow-downloads allow-downloads"></iframe>"""
     assert p.sanitize(input) == out
 
 
