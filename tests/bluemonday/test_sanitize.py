@@ -181,5 +181,5 @@ def test_IFrameSandboxAttribute():
 
     p.RequireSandboxOnIFrame(SandboxValue.SandboxAllowForms)
     input = """<iframe src="http://example.com" sandbox="allow-forms allow-downloads allow-downloads"></iframe>"""
-    out = """<iframe sandbox="allow-forms allow-downloads"></iframe>"""
+    out = """<iframe sandbox="allow-forms"></iframe>"""
     assert p.sanitize(input) == out
