@@ -29,6 +29,8 @@ extern void CallPolicyFunctionWithString(long unsigned int p0, char* p1, char* p
 
 extern void CallPolicyFunctionWithBool(long unsigned int p0, char* p1, unsigned int p2);
 
+extern void CallPolicyFunctionWithInt(long unsigned int policyId, char* method, char* argtype, unsigned int argument);
+
 extern char* SanitizeWithPolicy(long unsigned int p0, char* p1);
 
 extern void FreeCString(char* p0);

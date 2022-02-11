@@ -1,9 +1,28 @@
+from enum import IntEnum, unique
 from typing import List
 from unicodedata import normalize
 
 from pybluemonday.bluemonday import ffi, lib
 
-__version__ = "0.0.8"
+__version__ = "0.0.9"
+
+
+@unique
+class SandboxValue(IntEnum):
+    SandboxAllowDownloads = 0
+    SandboxAllowDownloadsWithoutUserActivation = 1
+    SandboxAllowForms = 2
+    SandboxAllowModals = 3
+    SandboxAllowOrientationLock = 4
+    SandboxAllowPointerLock = 5
+    SandboxAllowPopups = 6
+    SandboxAllowPopupsToEscapeSandbox = 7
+    SandboxAllowPresentation = 8
+    SandboxAllowSameOrigin = 9
+    SandboxAllowScripts = 10
+    SandboxAllowStorageAccessByUserActivation = 11
+    SandboxAllowTopNavigation = 12
+    SandboxAllowTopNavigationByUserActivation = 13
 
 
 class AttrPolicyBuilder:
@@ -80,6 +99,14 @@ class Policy:
                 elif isinstance(args[0], bool):
                     bool_arg = int(args[0])
                     lib.CallPolicyFunctionWithBool(self._id, method_name, bool_arg)
+                elif isinstance(args[0], IntEnum):
+                    enum_arg = args[0]
+                    # Get name of the enum to infer what underlying Go type we need
+                    enum_name = enum_arg.__class__.__name__.encode()
+                    int_arg = int(enum_arg)
+                    lib.CallPolicyFunctionWithInt(
+                        self._id, method_name, enum_name, int_arg
+                    )
             else:
                 lib.CallPolicyFunction(self._id, method_name)
 

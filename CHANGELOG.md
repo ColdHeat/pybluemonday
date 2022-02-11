@@ -1,3 +1,10 @@
+# 0.0.9 / 2022-02-11
+
+- Bump bluemonday to 1.0.18
+- Implement rough support for `RequireSandboxOnIFrame` by having an approach to call functions that take typed arguments
+  - This doesn't work entirely because currently only a single call to `RequireSandboxOnIFrame` will work but it will suffice until this behavior is actually needed.
+- Build wheels for Python 3.10 (Closes #29)
+
 # 0.0.8 / 2021-10-18
 
 - Bump bluemonday version to 1.0.16

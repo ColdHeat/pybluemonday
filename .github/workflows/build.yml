@@ -43,7 +43,7 @@ jobs:
         if: runner.os == 'Linux'
         env:
           CIBW_BUILD: cp3?-*
-          CIBW_SKIP: "cp35-* *-win32 *-manylinux_i686 *-manylinux_aarch64 *-manylinux_ppc64le *-manylinux_s390x"
+          CIBW_SKIP: "cp35-* *-win32 *-musllinux_* *-manylinux_i686 *-manylinux_aarch64 *-manylinux_ppc64le *-manylinux_s390x"
           CIBW_BUILD_VERBOSITY: 1
         run: |
           python setup.py sdist
@@ -54,6 +54,7 @@ jobs:
         env:
           CIBW_ARCHS_LINUX: i686
           CIBW_BUILD_VERBOSITY: 1
+          CIBW_SKIP: "*-musllinux_*"
         run: |
           python3 -m cibuildwheel --output-dir wheelhouse
 
@@ -62,6 +63,7 @@ jobs:
         env:
           CIBW_ARCHS_LINUX: aarch64
           CIBW_BUILD_VERBOSITY: 1
+          CIBW_SKIP: "*-musllinux_*"
         run: |
           python3 -m cibuildwheel --output-dir wheelhouse
 

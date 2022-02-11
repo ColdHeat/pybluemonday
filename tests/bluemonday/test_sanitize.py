@@ -1,4 +1,4 @@
-from pybluemonday import UGCPolicy, StrictPolicy, NewPolicy
+from pybluemonday import UGCPolicy, StrictPolicy, NewPolicy, SandboxValue
 from collections import namedtuple
 from multiprocessing.pool import ThreadPool, Pool
 
@@ -149,3 +149,37 @@ def test_selectStyleBug():
         p.sanitize("<select><option><style><script>alert(1)</script>")
         == "<select><option><style><script>alert(1)</script>"
     )
+
+
+def test_IFrameSandbox():
+    # Test updates from bluemonday v1.0.17
+    p = NewPolicy()
+    p.AllowAttrs("sandbox").OnElements("iframe")
+    input = """<iframe src="http://example.com" sandbox="allow-forms allow-downloads allow-downloads"></iframe>"""
+    out = """<iframe sandbox="allow-forms allow-downloads allow-downloads"></iframe>"""
+    assert p.sanitize(input) == out
+
+
+def test_IFrameSandboxAttribute():
+    # Test updates from bluemonday v1.0.17
+    p = NewPolicy()
+    p.AllowIFrames()
+    input = """<iframe src="http://example.com" sandbox="allow-forms allow-downloads allow-downloads"></iframe>"""
+    out = """<iframe sandbox=""></iframe>"""
+    assert p.sanitize(input) == out
+
+    p = NewPolicy()
+    p.AllowIFrames()
+    input = """<iframe src="http://example.com" sandbox="allow-forms allow-downloads allow-downloads"></iframe>"""
+    out = """<iframe sandbox=""></iframe>"""
+    assert p.sanitize(input) == out
+
+    p.RequireSandboxOnIFrame(SandboxValue.SandboxAllowDownloads)
+    input = """<iframe src="http://example.com" sandbox="allow-forms allow-downloads allow-downloads"></iframe>"""
+    out = """<iframe sandbox="allow-downloads"></iframe>"""
+    assert p.sanitize(input) == out
+
+    p.RequireSandboxOnIFrame(SandboxValue.SandboxAllowForms)
+    input = """<iframe src="http://example.com" sandbox="allow-forms allow-downloads allow-downloads"></iframe>"""
+    out = """<iframe sandbox="allow-forms"></iframe>"""
+    assert p.sanitize(input) == out

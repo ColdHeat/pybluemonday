@@ -156,6 +156,25 @@ func CallPolicyFunctionWithBool(policyId C.ulong, method *C.char, argument C.uin
 	meth.Call(args)
 }
 
+//export CallPolicyFunctionWithInt
+func CallPolicyFunctionWithInt(policyId C.ulong, method *C.char, argtype *C.char, argument C.uint) {
+	goPolicyId := uint32(policyId)
+	goMethod := C.GoString(method)
+	goArgType := C.GoString(argtype)
+	goArgument := int(argument)
+	policy := POLICIES[goPolicyId]
+
+	switch goArgType {
+	case "SandboxValue":
+		sv := bluemonday.SandboxValue(goArgument)
+		args := []reflect.Value{reflect.ValueOf(sv)}
+		meth := reflect.ValueOf(policy).MethodByName(goMethod)
+		meth.Call(args)
+	default:
+		panic("Unknown argument type function")
+	}
+}
+
 //export SanitizeWithPolicy
 func SanitizeWithPolicy(policyId C.ulong, document *C.char) *C.char {
 	goPolicyId := uint32(policyId)
