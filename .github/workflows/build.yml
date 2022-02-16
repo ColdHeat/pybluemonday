@@ -42,7 +42,6 @@ jobs:
       - name: Build Linux wheels and sdist
         if: runner.os == 'Linux'
         env:
-          CIBW_BUILD: cp3?-*
           CIBW_SKIP: "cp35-* *-win32 *-musllinux_i686 *-musllinux_aarch64 *-musllinux_ppc64le *-musllinux_s390x *-manylinux_i686 *-manylinux_aarch64 *-manylinux_ppc64le *-manylinux_s390x"
           CIBW_BUILD_VERBOSITY: 1
         run: |
