@@ -67,7 +67,6 @@ jobs:
       - name: Build macOS wheels
         if: runner.os == 'macOS'
         env:
-          CIBW_BUILD: cp3?-*
           CIBW_SKIP: "cp35-* *-win32 *-manylinux_i686 *-manylinux_aarch64 *-manylinux_ppc64le *-manylinux_s390x"
           CIBW_BUILD_VERBOSITY: 1
         run: |
@@ -76,7 +75,6 @@ jobs:
       - name: Build Windows wheels
         if: runner.os == 'Windows'
         env:
-          CIBW_BUILD: cp3?-*
           CIBW_SKIP: "cp35-* *-win32 *-manylinux_i686 *-manylinux_aarch64 *-manylinux_ppc64le *-manylinux_s390x"
           CIBW_BUILD_VERBOSITY: 1
         run: |
