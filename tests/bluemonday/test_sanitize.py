@@ -117,6 +117,15 @@ def test_AllowComments():
     assert p.sanitize("1 <!-- 2 --> 3") == "1 <!-- 2 --> 3"
 
 
+def test_commentSanitize():
+    p = UGCPolicy()
+    p.AllowComments()
+    assert (
+        p.sanitize("<!--&gt;<img src=x onerror=alert()&gt;>")
+        == "<!--&gt;<img src=x onerror=alert()>>-->"
+    )
+
+
 def test_HrefSanitization():
     cases = [
         Case(
