@@ -117,15 +117,24 @@ def test_AllowComments():
     assert p.sanitize("1 <!-- 2 --> 3") == "1 <!-- 2 --> 3"
 
 
+def test_commentSanitize():
+    p = UGCPolicy()
+    p.AllowComments()
+    assert (
+        p.sanitize("<!--&gt;<img src=x onerror=alert()&gt;>")
+        == "<!--&gt;<img src=x onerror=alert()>>-->"
+    )
+
+
 def test_HrefSanitization():
     cases = [
         Case(
             """abc<a href="https://abc&quot;&gt;<script&gt;alert(1)<&#x2f;script/">CLICK""",
-            """abc<a href="https://abc&amp;quot;&gt;&lt;script&gt;alert(1)&lt;/script/" rel="nofollow">CLICK""",
+            """abc<a href="https://abc&#34;&gt;&lt;script&gt;alert(1)&lt;/script/" rel="nofollow">CLICK""",
         ),
         Case(
             """<a href="https://abc&quot;&gt;<script&gt;alert(1)<&#x2f;script/">""",
-            """<a href="https://abc&amp;quot;&gt;&lt;script&gt;alert(1)&lt;/script/" rel="nofollow">""",
+            """<a href="https://abc&#34;&gt;&lt;script&gt;alert(1)&lt;/script/" rel="nofollow">""",
         ),
     ]
     p = UGCPolicy()

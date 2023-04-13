@@ -1,3 +1,8 @@
+# 0.0.10 / 2022-04-12
+
+- Bump bluemonday to 1.0.23
+- Fix vulnerability that was present in versions below 1.0.20 regarding the usage of `.AllowComments()`. See https://github.com/microcosm-cc/bluemonday/releases/tag/v1.0.20. 
+
 # 0.0.9 / 2022-02-11
 
 - Bump bluemonday to 1.0.18
