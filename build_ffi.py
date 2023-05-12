@@ -8,7 +8,7 @@ ffibuilder.set_source(
     """ //passed to the real C compiler
         #include "bluemonday.h"
     """,
-    # extra_objects=["bluemonday.so"],
+    extra_objects=["bluemonday.so"],
 )
 
 ffibuilder.cdef(
