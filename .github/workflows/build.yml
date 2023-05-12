@@ -32,7 +32,6 @@ jobs:
         run: |
           choco install visualstudio2019buildtools -f -y
           choco install golang -f -y
-          choco install mingw -f -y
           go get -d
 
       - name: Set up QEMU
