@@ -4,7 +4,7 @@ from unicodedata import normalize
 
 from pybluemonday.bluemonday import ffi, lib
 
-__version__ = "0.0.10"
+__version__ = "0.0.11"
 
 
 @unique
