@@ -30,8 +30,9 @@ jobs:
       - name: Install Visual C++ for Python
         if: runner.os == 'Windows'
         run: |
-          choco install visualstudio2019buildtools -f -y
           choco install golang -f -y
+          choco install mingw -f -y
+          pip install --force cibuildwheel==2.3.1
           go get -d
 
       - name: Set up QEMU
