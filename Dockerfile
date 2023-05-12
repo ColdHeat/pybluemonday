@@ -1,10 +1,3 @@
-FROM python:3.6-slim-buster as py36
-RUN apt-get update && apt-get install -y golang make build-essential libffi-dev git
-WORKDIR /root
-COPY . /root
-RUN python setup.py bdist_wheel
-
-
 FROM python:3.7-slim-buster as py37
 RUN apt-get update && apt-get install -y golang make build-essential libffi-dev git
 WORKDIR /root
