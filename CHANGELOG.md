@@ -1,7 +1,13 @@
-# 0.0.10 / 2022-04-12
+# 0.0.11 / 2023-05-12
+
+- Release wheels for Python 3.11 with the exception of Windows
+- Release wheels for Apple Silicon
+- Drop support for Python 3.6
+
+# 0.0.10 / 2023-04-12
 
 - Bump bluemonday to 1.0.23
-- Fix vulnerability that was present in versions below 1.0.20 regarding the usage of `.AllowComments()`. See https://github.com/microcosm-cc/bluemonday/releases/tag/v1.0.20. 
+- Fix vulnerability that was present in versions below 1.0.20 regarding the usage of `.AllowComments()`. See https://github.com/microcosm-cc/bluemonday/releases/tag/v1.0.20.
 
 # 0.0.9 / 2022-02-11
 
