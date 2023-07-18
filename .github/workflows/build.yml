@@ -69,7 +69,7 @@ jobs:
         env:
           CIBW_SKIP: "cp35-* cp36-* *-win32 *-manylinux_i686 *-manylinux_aarch64 *-manylinux_ppc64le *-manylinux_s390x"
           CIBW_BUILD_VERBOSITY: 1
-          CIBW_ARCHS_MACOS: x86_64 arm64
+          CIBW_ARCHS_MACOS: x86_64
         run: |
           python3 -m cibuildwheel --output-dir wheelhouse
 
