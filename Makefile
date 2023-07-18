@@ -1,6 +1,10 @@
 so:
 	go get -d
+ifndef GOARCH
 	go build -buildmode=c-shared -o bluemonday.so .
+else
+	GOARCH=${GOARCH} go build -buildmode=c-shared -o bluemonday.so .
+endif
 
 ffi:
 	python3 build_ffi.py
