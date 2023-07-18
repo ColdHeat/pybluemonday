@@ -1,3 +1,7 @@
+# 0.0.12 / 2023-07-18
+
+- Fix wheels for Apple Silicon
+
 # 0.0.11 / 2023-05-12
 
 - Release wheels for Python 3.11 with the exception of Windows
