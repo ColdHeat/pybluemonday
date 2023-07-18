@@ -80,6 +80,7 @@ jobs:
           CIBW_BUILD_VERBOSITY: 1
           CIBW_ARCHS_MACOS: arm64
           GOARCH: arm64
+          CGO_ENABLED: 1
         run: |
           python3 -m cibuildwheel --output-dir wheelhouse
 
