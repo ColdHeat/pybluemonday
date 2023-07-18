@@ -3,7 +3,7 @@ so:
 ifndef GOARCH
 	go build -buildmode=c-shared -o bluemonday.so .
 else
-	GOARCH=${GOARCH} go build -buildmode=c-shared -o bluemonday.so .
+	CGO_ENABLED=1 GOARCH=${GOARCH} go build -buildmode=c-shared -o bluemonday.so .
 endif
 
 ffi:
