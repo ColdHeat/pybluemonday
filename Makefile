@@ -1,5 +1,5 @@
 so:
-	go get -d
+	go install
 ifndef GOARCH
 	go build -buildmode=c-shared -o bluemonday.so .
 else
