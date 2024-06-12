@@ -8,7 +8,7 @@ import re
 uname = platform.uname()
 print(uname)
 
-# Install OSX Golang if needed
+# # Install OSX Golang if needed
 if uname.system == "Darwin":
     os.system("./scripts/setup-macos.sh")
 
@@ -23,22 +23,22 @@ elif uname.system == "Linux":
     elif uname.machine == "i686":
         os.system("./scripts/setup-linux-32.sh")
 
-# Add in our downloaded Go compiler to PATH
-old_path = os.environ["PATH"]
-new_path = os.path.join(os.getcwd(), "go", "bin")
-env = {"PATH": f"{old_path}:{new_path}"}
-env = dict(os.environ, **env)
-os.environ["PATH"] = f"{old_path}:{new_path}"
+# # Add in our downloaded Go compiler to PATH
+# old_path = os.environ["PATH"]
+# new_path = os.path.join(os.getcwd(), "go", "bin")
+# env = {"PATH": f"{old_path}:{new_path}"}
+# env = dict(os.environ, **env)
+# os.environ["PATH"] = f"{old_path}:{new_path}"
 
-# Clean out any existing files
-subprocess.call(["make", "clean"], env=env)
+# # Clean out any existing files
+# subprocess.call(["make", "clean"], env=env)
 
-# Build the Go shared module for whatever OS we're on
-subprocess.call(["make", "so"], env=env)
+# # Build the Go shared module for whatever OS we're on
+# subprocess.call(["make", "so"], env=env)
 
-# Build the CFFI headers
-subprocess.call(["pip", "install", "cffi~=1.1"], env=env)
-subprocess.call(["make", "ffi"], env=env)
+# # Build the CFFI headers
+# subprocess.call(["pip", "install", "cffi~=1.1"], env=env)
+# subprocess.call(["make", "ffi"], env=env)
 
 with open("pybluemonday/__init__.py", "r", encoding="utf8") as f:
     version = re.search(r'__version__ = "(.*?)"', f.read()).group(1)
