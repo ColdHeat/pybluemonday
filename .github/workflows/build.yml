@@ -41,12 +41,15 @@ jobs:
 
       - name: Build Linux wheels and sdist
         if: runner.os == 'Linux'
+        run: |
+          python setup.py sdist
+
+      - name: Build Linux wheels and sdist
+        if: runner.os == 'Linux'
         env:
           CIBW_SKIP: "cp36-* *-win32 *-musllinux_i686 *-musllinux_aarch64 *-musllinux_ppc64le *-musllinux_s390x *-manylinux_i686 *-manylinux_aarch64 *-manylinux_ppc64le *-manylinux_s390x"
           CIBW_BUILD_VERBOSITY: 1
         run: |
-          python setup.py sdist
-          make clean
           python3 -m cibuildwheel --output-dir wheelhouse
 
       - name: Build i686 wheel
