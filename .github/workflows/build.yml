@@ -46,6 +46,7 @@ jobs:
           CIBW_BUILD_VERBOSITY: 1
         run: |
           python setup.py sdist
+          make clean
           python3 -m cibuildwheel --output-dir wheelhouse
 
       - name: Build i686 wheel
