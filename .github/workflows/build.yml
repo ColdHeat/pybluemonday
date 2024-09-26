@@ -47,7 +47,7 @@ jobs:
       - name: Build Linux wheels and sdist
         if: runner.os == 'Linux'
         env:
-          CIBW_SKIP: "cp36-* *-win32 *-musllinux_i686 *-musllinux_aarch64 *-musllinux_ppc64le *-musllinux_s390x *-manylinux_i686 *-manylinux_aarch64 *-manylinux_ppc64le *-manylinux_s390x"
+          CIBW_SKIP: "cp36-* cp37-* *-win32 *-musllinux_i686 *-musllinux_aarch64 *-musllinux_ppc64le *-musllinux_s390x *-manylinux_i686 *-manylinux_aarch64 *-manylinux_ppc64le *-manylinux_s390x"
           CIBW_BUILD_VERBOSITY: 1
         run: |
           python3 -m cibuildwheel --output-dir wheelhouse
@@ -71,7 +71,7 @@ jobs:
       - name: Build x86_64 macOS wheels
         if: runner.os == 'macOS'
         env:
-          CIBW_SKIP: "cp36-* *-win32 *-manylinux_i686 *-manylinux_aarch64 *-manylinux_ppc64le *-manylinux_s390x"
+          CIBW_SKIP: "cp36-* cp37-* *-win32 *-manylinux_i686 *-manylinux_aarch64 *-manylinux_ppc64le *-manylinux_s390x"
           CIBW_BUILD_VERBOSITY: 1
           CIBW_ARCHS_MACOS: x86_64
         run: |
@@ -80,7 +80,7 @@ jobs:
       - name: Build arm64 macOS wheels
         if: runner.os == 'macOS'
         env:
-          CIBW_SKIP: "cp36-* *-win32 *-manylinux_i686 *-manylinux_aarch64 *-manylinux_ppc64le *-manylinux_s390x"
+          CIBW_SKIP: "cp36-* cp37-* *-win32 *-manylinux_i686 *-manylinux_aarch64 *-manylinux_ppc64le *-manylinux_s390x"
           CIBW_BUILD_VERBOSITY: 1
           CIBW_ARCHS_MACOS: arm64
           GOARCH: arm64
@@ -91,7 +91,7 @@ jobs:
       - name: Build Windows wheels
         if: runner.os == 'Windows'
         env:
-          CIBW_SKIP: "cp36-* *-win32 *-manylinux_i686 *-manylinux_aarch64 *-manylinux_ppc64le *-manylinux_s390x"
+          CIBW_SKIP: "cp36-* cp37-* *-win32 *-manylinux_i686 *-manylinux_aarch64 *-manylinux_ppc64le *-manylinux_s390x"
           CIBW_BUILD_VERBOSITY: 1
         run: |
           python -m cibuildwheel --output-dir wheelhouse
