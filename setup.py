@@ -34,6 +34,8 @@ os.environ["PATH"] = f"{old_path}:{new_path}"
 subprocess.call(["make", "clean"], env=env)
 
 # Build the Go shared module for whatever OS we're on
+subprocess.call(["pip", "install", "setuptools==68.0.0"], env=env)
+subprocess.call(["pip", "install", "setuptools-golang==2.7.0"], env=env)
 subprocess.call(["make", "so"], env=env)
 
 # Build the CFFI headers

@@ -39,10 +39,10 @@ jobs:
         uses: docker/setup-qemu-action@v1
         if: runner.os == 'Linux'
 
-      # - name: Build Linux wheels and sdist
-      #   if: runner.os == 'Linux'
-      #   run: |
-      #     python setup.py sdist
+      - name: Build Linux wheels and sdist
+        if: runner.os == 'Linux'
+        run: |
+          python setup.py sdist
 
       - name: Build Linux wheels and sdist
         if: runner.os == 'Linux'
