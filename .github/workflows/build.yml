@@ -93,11 +93,10 @@ jobs:
           python -m cibuildwheel --output-dir wheelhouse
 
       - name: Publish sdist
-        if: runner.os == 'Linux'
         env:
           TWINE_USERNAME: ${{ secrets.PYPI_USERNAME }}
           TWINE_PASSWORD: ${{ secrets.PYPI_PASSWORD }}
-        if: ${{ github.event_name == 'release' && env.TWINE_USERNAME != null }}
+        if: ${{ github.event_name == 'release' && env.TWINE_USERNAME != null && runner.os == 'Linux' }}
         run: |
           twine check ./dist/*.tar.gz
           twine upload --skip-existing ./dist/*
