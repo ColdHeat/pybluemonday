@@ -1,3 +1,8 @@
+# 0.0.13 / 2024-09-26
+
+* Bump bluemonday to 1.0.27
+* Release wheels for Python 3.12
+
 # 0.0.12 / 2023-07-18
 
 - Fix wheels for Apple Silicon
