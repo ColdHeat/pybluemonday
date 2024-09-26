@@ -7,5 +7,5 @@ isort==5.6.4
 twine==4.0.2
 pytest==6.2.5
 psutil==5.7.3
-cibuildwheel==2.12.3
+cibuildwheel==2.21.1
 importlib_metadata==6.7.0
