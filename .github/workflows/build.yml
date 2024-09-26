@@ -32,6 +32,7 @@ jobs:
         run: |
           choco install golang -f -y
           choco install mingw -f -y
+          pip install --force cibuildwheel==2.3.1
           go get -d
 
       - name: Set up QEMU
