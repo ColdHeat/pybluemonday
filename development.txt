@@ -3,8 +3,7 @@ wheel==0.37.1
 cffi==1.14.5
 black==20.8b1
 isort==5.6.4
-twine==4.0.2
+twine==5.0.0
 pytest==6.2.5
 psutil==5.7.3
 cibuildwheel==2.12.3
-importlib_metadata==6.7.0
