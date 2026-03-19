@@ -2,6 +2,7 @@ import os
 import platform
 import setuptools
 import subprocess
+import sys
 import re
 
 # Print out our uname for debugging purposes
@@ -37,7 +38,7 @@ subprocess.call(["make", "clean"], env=env)
 subprocess.call(["make", "so"], env=env)
 
 # Build the CFFI headers
-subprocess.call(["pip", "install", "cffi~=1.1"], env=env)
+subprocess.check_call([sys.executable, "-m", "pip", "install", "cffi>=2.0.0,<3"], env=env)
 subprocess.call(["make", "ffi"], env=env)
 
 with open("pybluemonday/__init__.py", "r", encoding="utf8") as f:
@@ -65,6 +66,6 @@ setuptools.setup(
     # I'm not sure what this value is supposed to be
     build_golang={"root": "github.com/ColdHeat/pybluemonday"},
     ext_modules=[setuptools.Extension("pybluemonday/bluemonday", ["bluemonday.go"])],
-    setup_requires=["setuptools-golang==2.7.0", "cffi~=1.1"],
-    install_requires=["cffi~=1.1"],
+    setup_requires=["setuptools-golang==2.9.0", "cffi>=2.0.0,<3"],
+    install_requires=["cffi>=2.0.0,<3"],
 )

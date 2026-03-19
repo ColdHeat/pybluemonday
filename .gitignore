@@ -7,4 +7,7 @@ pybluemonday/*.so
 .DS_Store
 bluemonday.o
 bluemonday.so
+bluemonday.c
+bluemonday.h
+bluemonday.cpython-*.so
 .eggs
